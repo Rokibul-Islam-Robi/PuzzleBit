@@ -322,6 +322,26 @@ class PuzzleBitGame {
             animatedBackground.appendChild(bubble);
         }
         
+        // Add anime characters
+        for (let i = 1; i <= 4; i++) {
+            const character = document.createElement('div');
+            character.className = `anime-character character-${i}`;
+            
+            // Add character details
+            const characterDetails = document.createElement('div');
+            characterDetails.className = 'character-details';
+            character.appendChild(characterDetails);
+            
+            // Add character energy trail
+            const characterTrail = document.createElement('div');
+            characterTrail.className = 'character-trail';
+            characterTrail.style.left = `${Math.random() * 100}%`;
+            characterTrail.style.animationDelay = `${Math.random() * 3}s`;
+            animatedBackground.appendChild(characterTrail);
+            
+            animatedBackground.appendChild(character);
+        }
+        
         gameContainer.appendChild(animatedBackground);
         
         // Create game header
