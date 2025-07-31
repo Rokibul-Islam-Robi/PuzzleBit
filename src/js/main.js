@@ -302,6 +302,26 @@ class PuzzleBitGame {
         cornerBottomRight.className = 'corner-effect bottom-right';
         animatedBackground.appendChild(cornerBottomRight);
         
+        // Add floating bubbles
+        const bubbleColors = ['', 'cyan', 'pink', 'orange', 'green'];
+        const bubbleEffects = ['', 'pulse', 'wobble'];
+        
+        for (let i = 1; i <= 15; i++) {
+            const bubble = document.createElement('div');
+            const colorClass = bubbleColors[i % bubbleColors.length];
+            const effectClass = bubbleEffects[i % bubbleEffects.length];
+            
+            bubble.className = `bubble bubble-${i}`;
+            if (colorClass) bubble.classList.add(`bubble-${colorClass}`);
+            if (effectClass) bubble.classList.add(`bubble-${effectClass}`);
+            
+            // Randomize position slightly
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.animationDelay = `${Math.random() * 20}s`;
+            
+            animatedBackground.appendChild(bubble);
+        }
+        
         gameContainer.appendChild(animatedBackground);
         
         // Create game header

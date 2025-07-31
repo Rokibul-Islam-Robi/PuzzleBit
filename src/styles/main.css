@@ -1103,3 +1103,236 @@ body {
         font-size: 1.3rem;
     }
 } 
+
+/* Gaming bubble animations */
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+    animation: bubbleFloat 15s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.bubble-1 {
+    width: 20px;
+    height: 20px;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 20s;
+}
+
+.bubble-2 {
+    width: 15px;
+    height: 15px;
+    left: 20%;
+    animation-delay: 2s;
+    animation-duration: 18s;
+}
+
+.bubble-3 {
+    width: 25px;
+    height: 25px;
+    left: 30%;
+    animation-delay: 4s;
+    animation-duration: 22s;
+}
+
+.bubble-4 {
+    width: 12px;
+    height: 12px;
+    left: 40%;
+    animation-delay: 6s;
+    animation-duration: 16s;
+}
+
+.bubble-5 {
+    width: 18px;
+    height: 18px;
+    left: 50%;
+    animation-delay: 8s;
+    animation-duration: 19s;
+}
+
+.bubble-6 {
+    width: 22px;
+    height: 22px;
+    left: 60%;
+    animation-delay: 10s;
+    animation-duration: 21s;
+}
+
+.bubble-7 {
+    width: 14px;
+    height: 14px;
+    left: 70%;
+    animation-delay: 12s;
+    animation-duration: 17s;
+}
+
+.bubble-8 {
+    width: 28px;
+    height: 28px;
+    left: 80%;
+    animation-delay: 14s;
+    animation-duration: 24s;
+}
+
+.bubble-9 {
+    width: 16px;
+    height: 16px;
+    left: 90%;
+    animation-delay: 16s;
+    animation-duration: 18s;
+}
+
+.bubble-10 {
+    width: 24px;
+    height: 24px;
+    left: 5%;
+    animation-delay: 18s;
+    animation-duration: 20s;
+}
+
+/* Bubble glow effects */
+.bubble::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 30%;
+    height: 30%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9), transparent);
+    border-radius: 50%;
+    animation: bubbleGlow 3s ease-in-out infinite;
+}
+
+.bubble::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 20%;
+    height: 20%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1), transparent);
+    border-radius: 50%;
+    animation: bubbleSparkle 2s ease-in-out infinite;
+}
+
+/* Bubble float animation */
+@keyframes bubbleFloat {
+    0% {
+        transform: translateY(100vh) translateX(0px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100px) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Bubble glow animation */
+@keyframes bubbleGlow {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* Bubble sparkle animation */
+@keyframes bubbleSparkle {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+/* Bubble trail effect */
+.bubble-trail {
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+    animation: bubbleTrail 2s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes bubbleTrail {
+    0% {
+        opacity: 0.3;
+        transform: scaleY(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scaleY(0.1);
+    }
+} 
+
+/* Additional bubble variations */
+.bubble-cyan {
+    background: radial-gradient(circle at 30% 30%, rgba(120, 219, 255, 0.8), rgba(120, 219, 255, 0.2));
+    animation-duration: 25s;
+}
+
+.bubble-pink {
+    background: radial-gradient(circle at 30% 30%, rgba(255, 119, 198, 0.8), rgba(255, 119, 198, 0.2));
+    animation-duration: 23s;
+}
+
+.bubble-orange {
+    background: radial-gradient(circle at 30% 30%, rgba(255, 183, 77, 0.8), rgba(255, 183, 77, 0.2));
+    animation-duration: 21s;
+}
+
+.bubble-green {
+    background: radial-gradient(circle at 30% 30%, rgba(183, 255, 77, 0.8), rgba(183, 255, 77, 0.2));
+    animation-duration: 27s;
+}
+
+/* Bubble pulse effect */
+.bubble-pulse {
+    animation: bubblePulse 4s ease-in-out infinite;
+}
+
+@keyframes bubblePulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+}
+
+/* Bubble wobble effect */
+.bubble-wobble {
+    animation: bubbleWobble 3s ease-in-out infinite;
+}
+
+@keyframes bubbleWobble {
+    0%, 100% {
+        transform: translateX(0px) rotate(0deg);
+    }
+    25% {
+        transform: translateX(5px) rotate(2deg);
+    }
+    75% {
+        transform: translateX(-5px) rotate(-2deg);
+    }
+} 
