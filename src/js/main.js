@@ -184,7 +184,8 @@ class PuzzleBitGame {
         this.gameState = 'playing';
         this.resetGameStats();
         this.showGameUI();
-        this.createPuzzleGrid();
+        
+        // Start game timer
         this.startGameTimer();
         
         // Show first-time help for new players
@@ -205,17 +206,41 @@ class PuzzleBitGame {
     }
 
     showGameUI() {
-        document.getElementById('game-ui').classList.remove('hidden');
-        document.getElementById('main-menu').classList.add('hidden');
+        console.log('🎮 Starting showGameUI...');
+        
+        const gameUI = document.getElementById('game-ui');
+        const mainMenu = document.getElementById('main-menu');
+        
+        if (!gameUI) {
+            console.error('❌ Game UI element not found');
+            return;
+        }
+        
+        if (!mainMenu) {
+            console.error('❌ Main menu element not found');
+            return;
+        }
+        
+        gameUI.classList.remove('hidden');
+        mainMenu.classList.add('hidden');
+        
+        console.log('✅ UI elements hidden/shown');
         
         const gameContainer = this.createGameContainer();
-        document.getElementById('game-ui').appendChild(gameContainer);
+        gameUI.appendChild(gameContainer);
+        
+        console.log('✅ Game container created and appended');
         
         // Setup game controls
         this.setupGameControls();
         
+        // Create puzzle grid after container is ready
+        this.createPuzzleGrid();
+        
         this.gameState = 'playing';
         this.startGameTimer();
+        
+        console.log('✅ Game UI setup complete');
     }
 
     createGameContainer() {
@@ -358,8 +383,15 @@ class PuzzleBitGame {
     }
 
     createPuzzleGrid() {
-        const gridContainer = document.getElementById('puzzle-grid');
-        if (!gridContainer) return;
+        console.log('🎯 Creating puzzle grid...');
+        
+        const gridContainer = document.querySelector('.puzzle-grid');
+        if (!gridContainer) {
+            console.error('❌ Puzzle grid container not found');
+            return;
+        }
+        
+        console.log('✅ Found grid container, creating tiles...');
         
         gridContainer.innerHTML = '';
         this.puzzleGrid = [];
@@ -367,6 +399,8 @@ class PuzzleBitGame {
         // Create grid based on level
         this.gridSize = this.getLevelGridSize(this.currentLevel);
         gridContainer.setAttribute('data-size', this.gridSize);
+        
+        console.log(`🎲 Creating ${this.gridSize}x${this.gridSize} grid...`);
         
         for (let row = 0; row < this.gridSize; row++) {
             this.puzzleGrid[row] = [];
@@ -376,6 +410,8 @@ class PuzzleBitGame {
                 gridContainer.appendChild(tile);
             }
         }
+        
+        console.log('✅ Puzzle grid created successfully');
         
         // Add entrance animation
         this.animateGridEntrance();
