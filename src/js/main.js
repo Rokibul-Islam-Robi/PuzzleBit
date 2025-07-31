@@ -221,15 +221,31 @@ class PuzzleBitGame {
             return;
         }
         
+        console.log('✅ Found both game UI and main menu elements');
+        
         gameUI.classList.remove('hidden');
         mainMenu.classList.add('hidden');
         
         console.log('✅ UI elements hidden/shown');
         
         const gameContainer = this.createGameContainer();
-        gameUI.appendChild(gameContainer);
+        console.log('✅ Game container created:', gameContainer);
         
-        console.log('✅ Game container created and appended');
+        gameUI.appendChild(gameContainer);
+        console.log('✅ Game container appended to game UI');
+        
+        // Test if elements are visible
+        setTimeout(() => {
+            const testElement = document.querySelector('.puzzle-game-container');
+            console.log('🔍 Test element found:', testElement);
+            if (testElement) {
+                console.log('✅ Game container is in DOM');
+                console.log('📏 Game container dimensions:', testElement.offsetWidth, 'x', testElement.offsetHeight);
+                console.log('👁️ Game container visible:', testElement.offsetWidth > 0 && testElement.offsetHeight > 0);
+            } else {
+                console.error('❌ Game container not found in DOM');
+            }
+        }, 100);
         
         // Setup game controls
         this.setupGameControls();
