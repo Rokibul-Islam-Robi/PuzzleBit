@@ -210,72 +210,123 @@ class PuzzleBitGame {
     }
 
     showGameUI() {
-        const mainMenu = document.getElementById('main-menu');
-        const gameUI = document.getElementById('game-ui');
+        document.getElementById('game-ui').classList.remove('hidden');
+        document.getElementById('main-menu').classList.add('hidden');
         
-        if (mainMenu) {
-            mainMenu.classList.add('hidden');
-        }
+        const gameContainer = this.createGameContainer();
+        document.getElementById('game-ui').appendChild(gameContainer);
         
-        if (gameUI) {
-            gameUI.classList.remove('hidden');
-        }
+        // Setup game controls
+        this.setupGameControls();
         
-        // Create game container
-        this.createGameContainer();
+        this.gameState = 'playing';
+        this.startTimer();
     }
 
     createGameContainer() {
         const gameContainer = document.createElement('div');
-        gameContainer.id = 'puzzle-game-container';
         gameContainer.className = 'puzzle-game-container';
         
-        // Add animated background
-        gameContainer.innerHTML = `
-            <div class="animated-background">
-                <div class="bg-layer bg-layer-1"></div>
-                <div class="bg-layer bg-layer-2"></div>
-                <div class="bg-layer bg-layer-3"></div>
-            </div>
-            <div class="game-header">
-                <div class="level-info">
-                    <span class="level-number">Level ${this.currentLevel}</span>
-                    <span class="level-name">${this.getLevelName(this.currentLevel)}</span>
+        // Create enhanced animated background
+        const animatedBackground = document.createElement('div');
+        animatedBackground.className = 'animated-background';
+        
+        // Add background layers
+        const bgLayer1 = document.createElement('div');
+        bgLayer1.className = 'bg-layer bg-layer-1';
+        animatedBackground.appendChild(bgLayer1);
+        
+        const bgLayer2 = document.createElement('div');
+        bgLayer2.className = 'bg-layer bg-layer-2';
+        animatedBackground.appendChild(bgLayer2);
+        
+        const bgLayer3 = document.createElement('div');
+        bgLayer3.className = 'bg-layer bg-layer-3';
+        animatedBackground.appendChild(bgLayer3);
+        
+        // Add gaming grid overlay
+        const gridOverlay = document.createElement('div');
+        gridOverlay.className = 'grid-overlay';
+        animatedBackground.appendChild(gridOverlay);
+        
+        // Add gaming corner effects
+        const cornerTopLeft = document.createElement('div');
+        cornerTopLeft.className = 'corner-effect top-left';
+        animatedBackground.appendChild(cornerTopLeft);
+        
+        const cornerTopRight = document.createElement('div');
+        cornerTopRight.className = 'corner-effect top-right';
+        animatedBackground.appendChild(cornerTopRight);
+        
+        const cornerBottomLeft = document.createElement('div');
+        cornerBottomLeft.className = 'corner-effect bottom-left';
+        animatedBackground.appendChild(cornerBottomLeft);
+        
+        const cornerBottomRight = document.createElement('div');
+        cornerBottomRight.className = 'corner-effect bottom-right';
+        animatedBackground.appendChild(cornerBottomRight);
+        
+        gameContainer.appendChild(animatedBackground);
+        
+        // Create game header
+        const gameHeader = document.createElement('div');
+        gameHeader.className = 'game-header';
+        
+        const levelInfo = document.createElement('div');
+        levelInfo.className = 'level-info';
+        levelInfo.innerHTML = `
+            <div class="level-number">Level ${this.currentLevel}</div>
+            <div class="level-name">${this.getLevelName()}</div>
+        `;
+        gameHeader.appendChild(levelInfo);
+        
+        // Create game stats
+        const gameStats = document.createElement('div');
+        gameStats.className = 'game-stats';
+        gameStats.innerHTML = `
+            <div class="score">Score: <span id="score">0</span></div>
+            <div class="moves">Moves: <span id="moves">0</span></div>
+            <div class="timer">Time: <span id="timer">00:00</span></div>
+        `;
+        gameHeader.appendChild(gameStats);
+        
+        // Create game controls
+        const gameControls = document.createElement('div');
+        gameControls.className = 'game-controls';
+        gameControls.innerHTML = `
+            <button id="pause-btn" class="control-btn">⏸️</button>
+            <button id="hint-btn" class="control-btn">💡</button>
+            <button id="help-btn" class="control-btn">❓</button>
+        `;
+        gameHeader.appendChild(gameControls);
+        
+        gameContainer.appendChild(gameHeader);
+        
+        // Create puzzle grid container
+        const gridContainer = document.createElement('div');
+        gridContainer.className = 'puzzle-grid';
+        gridContainer.setAttribute('data-size', this.gridSize);
+        gameContainer.appendChild(gridContainer);
+        
+        // Create help overlay
+        const helpOverlay = document.createElement('div');
+        helpOverlay.id = 'help-overlay';
+        helpOverlay.className = 'help-overlay hidden';
+        helpOverlay.innerHTML = `
+            <div class="help-content">
+                <h3>Quick Help</h3>
+                <div class="help-tips">
+                    <p><strong>🎯 Objective:</strong> Match 3+ tiles in a row or column</p>
+                    <p><strong>🎮 Controls:</strong> Click tiles to select and swap</p>
+                    <p><strong>💡 Hint:</strong> Use the hint button when stuck</p>
+                    <p><strong>⏸️ Pause:</strong> Click pause to take a break</p>
                 </div>
-                <div class="game-stats">
-                    <span class="score">Score: ${this.score}</span>
-                    <span class="moves">Moves: ${this.moves}</span>
-                    <span class="timer">Time: ${this.formatTime(this.gameTime)}</span>
-                </div>
-                <div class="game-controls">
-                    <button id="reset-btn" class="control-btn">Reset Game</button>
-                    <button id="help-btn" class="control-btn">❓</button>
-                    <button id="hint-btn" class="control-btn">💡</button>
-                    <button id="pause-btn" class="control-btn">⏸️</button>
-                    <button id="menu-btn" class="control-btn">🏠</button>
-                </div>
-            </div>
-            <div id="puzzle-grid" class="puzzle-grid"></div>
-            
-            <!-- In-game help overlay -->
-            <div id="help-overlay" class="help-overlay hidden">
-                <div class="help-content">
-                    <h3>🎮 Quick Help</h3>
-                    <div class="help-tips">
-                        <p><strong>Click</strong> a tile to select it</p>
-                        <p><strong>Click</strong> adjacent tile to swap</p>
-                        <p><strong>Match 3+</strong> same colors in a row/column</p>
-                        <p><strong>Use 💡</strong> for hints when stuck</p>
-                    </div>
-                    <button id="close-help-btn" class="menu-btn primary">Got it!</button>
-                </div>
+                <button id="close-help-btn" class="control-btn">Close</button>
             </div>
         `;
+        gameContainer.appendChild(helpOverlay);
         
-        document.body.appendChild(gameContainer);
-        
-        // Setup game controls
-        this.setupGameControls();
+        return gameContainer;
     }
 
     setupGameControls() {
