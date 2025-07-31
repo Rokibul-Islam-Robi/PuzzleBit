@@ -1,9 +1,4 @@
-import { GameEngine } from './engine/GameEngine.js';
-import { UIManager } from './ui/UIManager.js';
-import { AudioManager } from './audio/AudioManager.js';
-import { LevelManager } from './levels/LevelManager.js';
-import { ParticleSystem } from './effects/ParticleSystem.js';
-
+// 2D PuzzleBit Game - No 3D imports needed
 class PuzzleBitGame {
     constructor() {
         this.currentLevel = 1;
@@ -220,7 +215,7 @@ class PuzzleBitGame {
         this.setupGameControls();
         
         this.gameState = 'playing';
-        this.startTimer();
+        this.startGameTimer();
     }
 
     createGameContainer() {
@@ -276,7 +271,7 @@ class PuzzleBitGame {
         levelInfo.className = 'level-info';
         levelInfo.innerHTML = `
             <div class="level-number">Level ${this.currentLevel}</div>
-            <div class="level-name">${this.getLevelName()}</div>
+            <div class="level-name">${this.getLevelName(this.currentLevel)}</div>
         `;
         gameHeader.appendChild(levelInfo);
         
