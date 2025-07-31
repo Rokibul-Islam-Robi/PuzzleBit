@@ -430,10 +430,28 @@ body {
         inset 0 -2px 4px rgba(0, 0, 0, 0.2);
     position: relative;
     overflow: hidden;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
     backdrop-filter: blur(5px);
     transform-style: preserve-3d;
     perspective: 1000px;
+    animation: tileGlow 3s ease-in-out infinite alternate;
+}
+
+/* Tile glow animation */
+@keyframes tileGlow {
+    0% {
+        box-shadow: 
+            0 8px 16px rgba(0, 0, 0, 0.4),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+            0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    100% {
+        box-shadow: 
+            0 8px 16px rgba(0, 0, 0, 0.4),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+            0 0 20px rgba(255, 255, 255, 0.3);
+    }
 }
 
 /* Tile inner pattern for depth */
@@ -448,6 +466,18 @@ body {
         radial-gradient(circle at 70% 70%, rgba(0, 0, 0, 0.2) 0%, transparent 50%);
     border-radius: 6px;
     pointer-events: none;
+    animation: patternShift 4s ease-in-out infinite;
+}
+
+@keyframes patternShift {
+    0%, 100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
 }
 
 /* Tile highlight for 3D effect */
@@ -461,6 +491,18 @@ body {
     border-radius: 6px;
     pointer-events: none;
     opacity: 0.7;
+    animation: highlightMove 2s ease-in-out infinite;
+}
+
+@keyframes highlightMove {
+    0%, 100% {
+        opacity: 0.7;
+        transform: translateX(0px) translateY(0px);
+    }
+    50% {
+        opacity: 0.9;
+        transform: translateX(2px) translateY(-2px);
+    }
 }
 
 .puzzle-tile::before {
@@ -481,12 +523,31 @@ body {
 }
 
 .puzzle-tile:hover {
-    transform: scale(1.15) translateZ(10px);
+    transform: scale(1.15) translateZ(10px) rotateX(5deg) rotateY(5deg);
     box-shadow: 
         0 12px 24px rgba(0, 0, 0, 0.5),
         inset 0 2px 4px rgba(255, 255, 255, 0.4),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(255, 255, 255, 0.4);
     border-color: rgba(255, 255, 255, 0.7);
+    animation: hoverGlow 0.3s ease-in-out;
+}
+
+@keyframes hoverGlow {
+    0% {
+        box-shadow: 
+            0 12px 24px rgba(0, 0, 0, 0.5),
+            inset 0 2px 4px rgba(255, 255, 255, 0.4),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(255, 255, 255, 0.4);
+    }
+    100% {
+        box-shadow: 
+            0 12px 24px rgba(0, 0, 0, 0.5),
+            inset 0 2px 4px rgba(255, 255, 255, 0.4),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+            0 0 40px rgba(255, 255, 255, 0.6);
+    }
 }
 
 .puzzle-tile.selected {
@@ -533,28 +594,7 @@ body {
     animation: entranceAnimation 0.6s ease-out;
 }
 
-/* Grid size variations */
-.puzzle-grid[data-size="6"] {
-    grid-template-columns: repeat(6, 60px);
-    grid-template-rows: repeat(6, 60px);
-}
-
-.puzzle-grid[data-size="7"] {
-    grid-template-columns: repeat(7, 60px);
-    grid-template-rows: repeat(7, 60px);
-}
-
-.puzzle-grid[data-size="8"] {
-    grid-template-columns: repeat(8, 60px);
-    grid-template-rows: repeat(8, 60px);
-}
-
-.puzzle-grid[data-size="9"] {
-    grid-template-columns: repeat(9, 60px);
-    grid-template-rows: repeat(9, 60px);
-}
-
-/* Animations */
+/* Enhanced animations for deep 3D effect */
 @keyframes swapAnimation {
     0% { 
         transform: scale(1) translateZ(0px); 
@@ -607,6 +647,27 @@ body {
         opacity: 1; 
         transform: scale(1) translateZ(0px) rotateX(0deg) rotateY(0deg); 
     }
+}
+
+/* Grid size variations */
+.puzzle-grid[data-size="6"] {
+    grid-template-columns: repeat(6, 60px);
+    grid-template-rows: repeat(6, 60px);
+}
+
+.puzzle-grid[data-size="7"] {
+    grid-template-columns: repeat(7, 60px);
+    grid-template-rows: repeat(7, 60px);
+}
+
+.puzzle-grid[data-size="8"] {
+    grid-template-columns: repeat(8, 60px);
+    grid-template-rows: repeat(8, 60px);
+}
+
+.puzzle-grid[data-size="9"] {
+    grid-template-columns: repeat(9, 60px);
+    grid-template-rows: repeat(9, 60px);
 }
 
 /* Utility Classes */

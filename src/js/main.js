@@ -341,13 +341,9 @@ class PuzzleBitGame {
         tile.dataset.row = row;
         tile.dataset.col = col;
         
-        // Create multi-color gradient for each tile
-        const color1 = this.colors[Math.floor(Math.random() * this.colors.length)];
-        const color2 = this.colors[Math.floor(Math.random() * this.colors.length)];
-        const color3 = this.colors[Math.floor(Math.random() * this.colors.length)];
-        
-        // Apply multi-color gradient
-        tile.style.background = `linear-gradient(135deg, ${color1} 0%, ${color2} 50%, ${color3} 100%)`;
+        // Use solid deep color for each tile
+        const color = this.colors[Math.floor(Math.random() * this.colors.length)];
+        tile.style.backgroundColor = color;
         
         // Add inner pattern for depth
         tile.innerHTML = `
@@ -402,10 +398,10 @@ class PuzzleBitGame {
         tile2.classList.remove('selected');
         this.selectedTile = null;
         
-        // Swap backgrounds
-        const tempBackground = tile1.style.background;
-        tile1.style.background = tile2.style.background;
-        tile2.style.background = tempBackground;
+        // Swap colors
+        const tempColor = tile1.style.backgroundColor;
+        tile1.style.backgroundColor = tile2.style.backgroundColor;
+        tile2.style.backgroundColor = tempColor;
         
         // Animate swap
         this.animateSwap(tile1, tile2, () => {
@@ -441,11 +437,11 @@ class PuzzleBitGame {
         // Check horizontal matches
         for (let row = 0; row < this.gridSize; row++) {
             for (let col = 0; col < this.gridSize - 2; col++) {
-                const background1 = this.puzzleGrid[row][col].style.background;
-                const background2 = this.puzzleGrid[row][col + 1].style.background;
-                const background3 = this.puzzleGrid[row][col + 2].style.background;
+                const color1 = this.puzzleGrid[row][col].style.backgroundColor;
+                const color2 = this.puzzleGrid[row][col + 1].style.backgroundColor;
+                const color3 = this.puzzleGrid[row][col + 2].style.backgroundColor;
                 
-                if (background1 === background2 && background2 === background3) {
+                if (color1 === color2 && color2 === color3) {
                     matches.push({ row, col });
                     matches.push({ row, col: col + 1 });
                     matches.push({ row, col: col + 2 });
@@ -456,11 +452,11 @@ class PuzzleBitGame {
         // Check vertical matches
         for (let row = 0; row < this.gridSize - 2; row++) {
             for (let col = 0; col < this.gridSize; col++) {
-                const background1 = this.puzzleGrid[row][col].style.background;
-                const background2 = this.puzzleGrid[row + 1][col].style.background;
-                const background3 = this.puzzleGrid[row + 2][col].style.background;
+                const color1 = this.puzzleGrid[row][col].style.backgroundColor;
+                const color2 = this.puzzleGrid[row + 1][col].style.backgroundColor;
+                const color3 = this.puzzleGrid[row + 2][col].style.backgroundColor;
                 
-                if (background1 === background2 && background2 === background3) {
+                if (color1 === color2 && color2 === color3) {
                     matches.push({ row, col });
                     matches.push({ row: row + 1, col });
                     matches.push({ row: row + 2, col });
@@ -482,11 +478,9 @@ class PuzzleBitGame {
             // Remove matched tiles and create new ones
             matches.forEach(match => {
                 const tile = this.puzzleGrid[match.row][match.col];
-                // Create new multi-color gradient
-                const color1 = this.colors[Math.floor(Math.random() * this.colors.length)];
-                const color2 = this.colors[Math.floor(Math.random() * this.colors.length)];
-                const color3 = this.colors[Math.floor(Math.random() * this.colors.length)];
-                tile.style.background = `linear-gradient(135deg, ${color1} 0%, ${color2} 50%, ${color3} 100%)`;
+                // Create new solid color
+                const newColor = this.colors[Math.floor(Math.random() * this.colors.length)];
+                tile.style.backgroundColor = newColor;
                 tile.classList.remove('matched');
             });
             
@@ -554,9 +548,9 @@ class PuzzleBitGame {
     }
 
     swapTilesTemp(row1, col1, row2, col2) {
-        const temp = this.puzzleGrid[row1][col1].style.background;
-        this.puzzleGrid[row1][col1].style.background = this.puzzleGrid[row2][col2].style.background;
-        this.puzzleGrid[row2][col2].style.background = temp;
+        const temp = this.puzzleGrid[row1][col1].style.backgroundColor;
+        this.puzzleGrid[row1][col1].style.backgroundColor = this.puzzleGrid[row2][col2].style.backgroundColor;
+        this.puzzleGrid[row2][col2].style.backgroundColor = temp;
     }
 
     pauseGame() {
