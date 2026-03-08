@@ -1,0 +1,22 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6c5ce7"/>
+      <stop offset="1" stop-color="#00cec9"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <stop offset="0" stop-color="black" stop-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Modern Hexagon Puzzle Block -->
+  <path d="M100 20L170 60V140L100 180L30 140V60L100 20Z" fill="url(#paint0_linear)" />
+  <path d="M100 20L170 60L100 100L30 60L100 20Z" fill="white" fill-opacity="0.2"/>
+  <path d="M100 180V100L170 60V140L100 180Z" fill="black" fill-opacity="0.1"/>
+  
+  <!-- "PB" Letters -->
+  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="900" font-size="60">PB</text>
+  
+  <!-- Accents -->
+  <circle cx="100" cy="20" r="5" fill="#00cec9"/>
+</svg>
