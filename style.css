@@ -18,7 +18,8 @@ body {
 #loadingScreen {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: black;
+    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmX_4CRSXnom-8BXM9JuSYHPlzm_LSFa3SPA&s") no-repeat center center;
+    background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -26,17 +27,27 @@ body {
     z-index: 1000;
 }
 
+#loadingScreen::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
+}
+
 .logo {
-    width: 150px;
+    width: 180px;
     margin-bottom: 30px;
+    filter: drop-shadow(0 0 10px rgba(108, 92, 231, 0.8));
 }
 
 .loader {
-    width: 200px;
-    height: 8px;
-    background: #444;
+    width: 250px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 20px;
     overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .loader::after {
@@ -44,7 +55,7 @@ body {
     display: block;
     height: 100%;
     width: 40%;
-    background: white;
+    background: linear-gradient(90deg, #6c5ce7, #00cec9);
     animation: load 2s infinite;
 }
 
@@ -55,7 +66,7 @@ body {
 
 /* 2. LANGUAGE SCREEN */
 .languageScreen {
-    background: url("https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80") no-repeat center center;
+    background: url("https://media.gettyimages.com/id/2170023676/photo/multi-colored-maze-pattern-background.jpg?s=612x612&w=gi&k=20&c=DDmui6bWQ6gBIKjjq5uP1xpd7W0nzLgHAVIg__nZLLh4=") no-repeat center center;
     height: 100vh;
     width: 100%;
     background-size: cover;
@@ -67,33 +78,49 @@ body {
 
 .languageScreen h1 {
     color: white;
-    font-size: 32px;
+    font-size: 36px;
+    font-family: 'Orbitron', sans-serif;
     margin-bottom: 40px;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+    letter-spacing: 4px;
 }
 
 .langBtn {
-    background: #6c8cd5;
+    background: rgba(108, 92, 231, 0.9);
     padding: 20px 80px;
     border-radius: 40px;
-    border: none;
-    font-size: 20px;
+    border: 2px solid rgba(255,255,255,0.3);
+    font-size: 22px;
     color: white;
     cursor: pointer;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.langBtn:hover {
+    transform: scale(1.05);
+    background: #6c5ce7;
 }
 
 .playBtn {
     margin-top: 40px;
-    background: #6bd03f;
+    background: linear-gradient(45deg, #6bd03f, #45b020);
     padding: 20px 120px;
     border-radius: 40px;
     border: none;
-    font-size: 24px;
+    font-size: 28px;
     color: white;
     cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    font-weight: 900;
+    box-shadow: 0 10px 25px rgba(107, 208, 63, 0.4);
+    transition: all 0.3s ease;
+    letter-spacing: 2px;
+}
+
+.playBtn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(107, 208, 63, 0.6);
 }
 
 /* 3. GAMEPLAY UI */
@@ -106,6 +133,15 @@ body {
     flex-direction: column;
     align-items: center;
     transition: background 1s ease;
+    position: relative;
+}
+
+.gameUI::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 0;
 }
 
 .topBar {
@@ -114,135 +150,161 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    z-index: 1;
 }
 
 .level-indicator {
-    background: rgba(0,0,0,0.5);
-    padding: 10px 20px;
+    background: rgba(0,0,0,0.7);
+    padding: 12px 25px;
     border-radius: 20px;
     color: white;
     font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+    border: 1px solid rgba(255,255,255,0.2);
 }
 
 .coins {
-    background: rgba(0,0,0,0.5);
-    padding: 10px 20px;
+    background: rgba(0,0,0,0.7);
+    padding: 12px 25px;
     border-radius: 20px;
     color: #ffd700;
-    font-weight: bold;
+    font-weight: 900;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    border: 1px solid rgba(255,215,0,0.3);
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(3, 60px);
-    gap: 10px;
-    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 60px;
+    z-index: 1;
+}
+
+.word-row {
+    display: flex;
+    justify-content: center;
 }
 
 .box {
-    width: 60px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 10px;
+    width: 65px;
+    height: 65px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 32px;
+    font-size: 36px;
     font-weight: 900;
-    color: #333;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    color: #2d3436;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-bottom: 4px solid #b2bec3;
 }
 
 .box.active {
-    background: white;
-    transform: scale(1.1);
+    background: #ffffff;
+    transform: scale(1.1) rotate(360deg);
+    border-color: #6bd03f;
+    color: #6bd03f;
 }
 
 .current-word-display {
-    margin-top: 30px;
-    height: 40px;
-    background: rgba(0,0,0,0.4);
+    margin-top: 40px;
+    height: 50px;
+    background: rgba(108, 92, 231, 0.8);
     color: white;
-    padding: 5px 25px;
-    border-radius: 20px;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    min-width: 100px;
+    padding: 8px 35px;
+    border-radius: 25px;
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: 4px;
+    min-width: 150px;
     text-align: center;
+    z-index: 1;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border: 2px solid rgba(255,255,255,0.2);
 }
 
 .letterWheel {
-    width: 220px;
-    height: 220px;
+    width: 240px;
+    height: 240px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
-    border: 4px solid rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(5px);
+    background: rgba(255, 255, 255, 0.15);
+    border: 6px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(8px);
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: 80px;
+    bottom: 60px;
+    z-index: 1;
 }
 
 .letter {
     position: absolute;
-    width: 55px;
-    height: 55px;
+    width: 65px;
+    height: 65px;
     background: white;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 900;
-    color: #6c8cd5;
+    color: #6c5ce7;
     cursor: pointer;
     user-select: none;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    transition: all 0.2s ease;
+    border-bottom: 4px solid #dfe6e9;
 }
 
 .letter.selected {
-    background: #6bd03f;
+    background: #6c5ce7;
     color: white;
+    transform: scale(1.2);
+    border-color: #4834d4;
 }
 
 .ui-buttons {
     position: absolute;
-    bottom: 80px;
+    bottom: 60px;
     width: 100%;
     display: flex;
     justify-content: space-around;
+    padding: 0 20px;
+    z-index: 2;
     pointer-events: none;
 }
 
 .iconBtn {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
-    border: none;
-    background: rgba(0,0,0,0.6);
+    border: 2px solid rgba(255,255,255,0.2);
+    background: rgba(0,0,0,0.8);
     cursor: pointer;
     pointer-events: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: transform 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-.iconBtn:hover { transform: scale(1.1); }
+.iconBtn:hover { 
+    transform: scale(1.1) rotate(15deg);
+    background: #000;
+}
 
 /* POPUP */
 .popup {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.9);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -251,10 +313,12 @@ body {
 
 .popup-content {
     background: white;
-    padding: 40px;
-    border-radius: 30px;
+    padding: 50px;
+    border-radius: 40px;
     text-align: center;
+    box-shadow: 0 0 50px rgba(107, 208, 63, 0.3);
+    border: 5px solid #6bd03f;
 }
 
-.popup-content h2 { font-size: 32px; color: #6bd03f; margin-bottom: 10px; }
-.reward { font-size: 24px; font-weight: bold; margin: 20px 0; color: #ffd700; }
+.popup-content h2 { font-size: 42px; color: #6bd03f; margin-bottom: 10px; font-family: 'Orbitron', sans-serif; }
+.reward { font-size: 32px; font-weight: 900; margin: 25px 0; color: #ffd700; text-shadow: 0 2px 5px rgba(0,0,0,0.1); }

@@ -2,36 +2,36 @@
   "levels": [
     {
       "number": 1,
-      "theme": "forest",
-      "bg": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80",
+      "theme": "Maze Pattern",
+      "bg": "https://media.gettyimages.com/id/2170023676/photo/multi-colored-maze-pattern-background.jpg?s=612x612&w=gi&k=20&c=DDmui6bWQ6gBIKjjq5uP1xpd7W0nzLgHAVIg__nZLLh4=",
       "letters": ["T", "A", "C"],
       "words": ["CAT", "ACT"]
     },
     {
       "number": 2,
-      "theme": "mountain",
-      "bg": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
+      "theme": "Pixel Adventure",
+      "bg": "https://preview.redd.it/7ncbjoe5cn581.png?width=640&crop=smart&auto=webp&s=4003d3bd08c3efae5e566083cda5828fa1f68bc5",
       "letters": ["B", "A", "T"],
       "words": ["BAT", "TAB"]
     },
     {
       "number": 3,
-      "theme": "desert",
-      "bg": "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?auto=format&fit=crop&w=1200&q=80",
+      "theme": "Pixel Maze",
+      "bg": "https://www.shutterstock.com/image-illustration/pixel-art-maze-game-background-260nw-2689343805.jpg",
       "letters": ["D", "O", "G"],
       "words": ["DOG", "GOD"]
     },
     {
       "number": 4,
-      "theme": "pyramid",
-      "bg": "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1200&q=80",
+      "theme": "Stable Puzzle",
+      "bg": "https://imgcdn.stablediffusionweb.com/2024/9/25/b605cb65-6593-4c52-941b-cda4129472c6.jpg",
       "letters": ["L", "I", "E"],
       "words": ["LIE", "ELI"]
     },
     {
       "number": 5,
-      "theme": "beach",
-      "bg": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+      "theme": "Retro Beach",
+      "bg": "https://freevector-images.s3.amazonaws.com/uploads/vector/preview/161180/vecteezymario_bros-Similar_or_Editorial_Artwork-background-no_text-HS0223revisi_generated.jpg",
       "letters": ["S", "U", "N"],
       "words": ["SUN"]
     }
