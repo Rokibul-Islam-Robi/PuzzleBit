@@ -22,7 +22,7 @@ async function init() {
         startLoadingSequence();
     } catch (e) {
         console.error("Critical Init Error:", e);
-        gameData.levels = [{number:1, theme:"Forest", bg:"", letters:["A","T"], words:["AT"]}];
+        gameData.levels = [{number:1, theme:"Vibrant Maze", bg:"https://png.pngtree.com/thumb_back/fh260/background/20251204/pngtree-abstract-geometric-maze-with-game-over-text-rendered-in-a-vibrant-image_20710732.webp", letters:["A","T"], words:["AT"]}];
         startLoadingSequence();
     }
 }
@@ -34,28 +34,20 @@ function updateCoinUI() {
 }
 
 function setupEventListeners() {
-    // Basic Flow
     document.querySelector(".playBtn").onclick = () => showScreen("gameUI");
     document.getElementById("nextLevelBtn").onclick = nextLevel;
-    
-    // Shop & Points
     document.getElementById("shuffleBtn").onclick = shuffleWheel;
     document.getElementById("hintBtn").onclick = useHint;
     document.getElementById("superHintBtn").onclick = useSuperHint;
     document.getElementById("dailyRewardBtn").onclick = getDailyReward;
-
-    // Navigation & Pause Logic
     document.getElementById("pauseBtn").onclick = () => openModal("PAUSED");
     document.getElementById("settingsBtn").onclick = () => openModal("SETTINGS");
     document.getElementById("resumeBtn").onclick = closeModal;
     document.getElementById("restartBtn").onclick = () => { closeModal(); loadLevel(); };
     document.getElementById("prevLevelBtn").onclick = previousLevel;
-    
-    // Settings
     document.getElementById("soundToggle").onclick = toggleAudio;
     document.getElementById("resetDataBtn").onclick = resetProgress;
     
-    // Gameplay
     window.addEventListener("mouseup", checkWord);
     window.addEventListener("touchend", checkWord);
 }
@@ -91,7 +83,11 @@ function applySettings() {
         btn.innerText = gameData.isMuted ? "OFF" : "ON";
         btn.style.background = gameData.isMuted ? "#ff7675" : "#6bd03f";
     }
-    gameData.isMuted ? gameData.music.pause() : (gameData.music.paused && document.querySelector(".gameUI").style.display === "flex" ? gameData.music.play() : null);
+    if(gameData.isMuted) {
+        gameData.music.pause();
+    } else if(document.querySelector(".gameUI").style.display === "flex") {
+        gameData.music.play().catch(() => {});
+    }
 }
 
 function getDailyReward() {
@@ -160,7 +156,6 @@ function renderWheel(letters) {
         span.innerText = char;
         let angle = i * (360 / letters.length);
         span.style.transform = `rotate(${angle}deg) translate(90px) rotate(-${angle}deg)`;
-        
         const select = (e) => { e.preventDefault(); selectLetter(span, char); };
         span.onmousedown = select;
         span.ontouchstart = select;
@@ -180,13 +175,11 @@ function checkWord() {
     if(!gameData.selectedLetters) return;
     const word = gameData.selectedLetters;
     const level = gameData.levels[gameData.currentLevelIndex];
-    
     if(level.words.includes(word) && !gameData.foundWords.includes(word)) {
         gameData.foundWords.push(word);
         fillGrid(word);
         if(gameData.foundWords.length === level.words.length) setTimeout(showCompletePopup, 600);
     }
-    
     gameData.selectedLetters = "";
     document.getElementById("currentWord").innerText = "";
     document.querySelectorAll(".letter").forEach(l => l.classList.remove("selected"));
