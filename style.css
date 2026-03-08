@@ -66,7 +66,7 @@ body {
 
 /* 2. LANGUAGE SCREEN */
 .languageScreen {
-    background: url("https://media.gettyimages.com/id/2170023676/photo/multi-colored-maze-pattern-background.jpg?s=612x612&w=gi&k=20&c=DDmui6bWQ6gBIKjjq5uP1xpd7W0nzLgHAVIg__nZLLh4=") no-repeat center center;
+    background: url("https://png.pngtree.com/thumb_back/fh260/background/20251204/pngtree-abstract-geometric-maze-with-game-over-text-rendered-in-a-vibrant-image_20710732.webp") no-repeat center center;
     height: 100vh;
     width: 100%;
     background-size: cover;
@@ -98,11 +98,6 @@ body {
     font-weight: bold;
 }
 
-.langBtn:hover {
-    transform: scale(1.05);
-    background: #6c5ce7;
-}
-
 .playBtn {
     margin-top: 40px;
     background: linear-gradient(45deg, #6bd03f, #45b020);
@@ -118,10 +113,7 @@ body {
     letter-spacing: 2px;
 }
 
-.playBtn:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 35px rgba(107, 208, 63, 0.6);
-}
+.playBtn.small { padding: 10px 40px; font-size: 18px; margin-top: 20px; }
 
 /* 3. GAMEPLAY UI */
 .gameUI {
@@ -146,16 +138,30 @@ body {
 
 .topBar {
     width: 100%;
-    padding: 30px;
+    padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     z-index: 1;
 }
 
+.topRight { display: flex; align-items: center; gap: 10px; }
+
+.rewardBtn {
+    background: #ff9f43;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 15px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
 .level-indicator {
     background: rgba(0,0,0,0.7);
-    padding: 12px 25px;
+    padding: 10px 20px;
     border-radius: 20px;
     color: white;
     font-weight: bold;
@@ -165,7 +171,7 @@ body {
 
 .coins {
     background: rgba(0,0,0,0.7);
-    padding: 12px 25px;
+    padding: 10px 20px;
     border-radius: 20px;
     color: #ffd700;
     font-weight: 900;
@@ -179,7 +185,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    margin-top: 60px;
+    margin-top: 40px;
     z-index: 1;
 }
 
@@ -189,14 +195,14 @@ body {
 }
 
 .box {
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
     background: rgba(255, 255, 255, 0.95);
     border-radius: 12px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 900;
     color: #2d3436;
     box-shadow: 0 6px 20px rgba(0,0,0,0.3);
@@ -212,25 +218,23 @@ body {
 }
 
 .current-word-display {
-    margin-top: 40px;
-    height: 50px;
+    margin-top: 30px;
+    height: 45px;
     background: rgba(108, 92, 231, 0.8);
     color: white;
-    padding: 8px 35px;
+    padding: 5px 30px;
     border-radius: 25px;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 900;
     letter-spacing: 4px;
-    min-width: 150px;
+    min-width: 120px;
     text-align: center;
     z-index: 1;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    border: 2px solid rgba(255,255,255,0.2);
 }
 
 .letterWheel {
-    width: 240px;
-    height: 240px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.15);
     border: 6px solid rgba(255, 255, 255, 0.3);
@@ -239,20 +243,20 @@ body {
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: 60px;
+    bottom: 100px;
     z-index: 1;
 }
 
 .letter {
     position: absolute;
-    width: 65px;
-    height: 65px;
+    width: 60px;
+    height: 60px;
     background: white;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 900;
     color: #6c5ce7;
     cursor: pointer;
@@ -265,39 +269,83 @@ body {
 .letter.selected {
     background: #6c5ce7;
     color: white;
-    transform: scale(1.2);
-    border-color: #4834d4;
 }
 
 .ui-buttons {
     position: absolute;
-    bottom: 60px;
+    bottom: 20px;
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 15px;
     padding: 0 20px;
     z-index: 2;
-    pointer-events: none;
 }
 
+.shopBtn {
+    background: rgba(0,0,0,0.8);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 10px 15px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.shopBtn:hover { background: #000; transform: translateY(-2px); }
+
 .iconBtn {
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: 2px solid rgba(255,255,255,0.2);
     background: rgba(0,0,0,0.8);
     cursor: pointer;
-    pointer-events: auto;
+    font-size: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
-.iconBtn:hover { 
-    transform: scale(1.1) rotate(15deg);
-    background: #000;
+/* SETTINGS MODAL */
+.settings-box {
+    background: rgba(255, 255, 255, 0.95) !important;
+    min-width: 300px;
+}
+
+.setting-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    font-weight: bold;
+}
+
+.toggleBtn {
+    background: #6c5ce7;
+    color: white;
+    border: none;
+    padding: 5px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.dangerBtn {
+    background: #ff7675;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 /* POPUP */
@@ -313,12 +361,7 @@ body {
 
 .popup-content {
     background: white;
-    padding: 50px;
-    border-radius: 40px;
+    padding: 40px;
+    border-radius: 30px;
     text-align: center;
-    box-shadow: 0 0 50px rgba(107, 208, 63, 0.3);
-    border: 5px solid #6bd03f;
 }
-
-.popup-content h2 { font-size: 42px; color: #6bd03f; margin-bottom: 10px; font-family: 'Orbitron', sans-serif; }
-.reward { font-size: 32px; font-weight: 900; margin: 25px 0; color: #ffd700; text-shadow: 0 2px 5px rgba(0,0,0,0.1); }

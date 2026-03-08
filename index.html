@@ -24,10 +24,14 @@
     <!-- 3. GAMEPLAY UI -->
     <div class="gameUI" style="display:none;">
         <div class="topBar">
+            <button class="iconBtn small" id="settingsBtn">⚙️</button>
             <div class="level-indicator">Level <span id="currentLevel">1</span></div>
-            <div class="coins">
-                <img src="assets/ui/coin.png" width="20" onerror="this.src='https://cdn-icons-png.flaticon.com/512/217/217853.png'">
-                <span id="coinValue">250</span>
+            <div class="topRight">
+                <button class="rewardBtn" id="dailyRewardBtn">🎁 Get Points</button>
+                <div class="coins">
+                    <img src="assets/ui/coin.png" width="20" onerror="this.src='https://cdn-icons-png.flaticon.com/512/217/217853.png'">
+                    <span id="coinValue">250</span>
+                </div>
             </div>
         </div>
 
@@ -42,8 +46,30 @@
         </div>
 
         <div class="ui-buttons">
-            <button class="iconBtn" id="shuffleBtn"><img src="assets/ui/shuffle.png" width="30" onerror="this.src='https://cdn-icons-png.flaticon.com/512/61/61702.png'"></button>
-            <button class="iconBtn" id="hintBtn"><img src="assets/ui/hint.png" width="30" onerror="this.src='https://cdn-icons-png.flaticon.com/512/1000/1000882.png'"></button>
+            <button class="shopBtn" id="hintBtn">💡 Hint (100)</button>
+            <button class="shopBtn" id="superHintBtn">🔍 Super (300)</button>
+            <button class="shopBtn" id="shuffleBtn">🔀 Shuffle</button>
+        </div>
+    </div>
+
+    <!-- 5. SETTINGS MODAL -->
+    <div id="settingsModal" class="popup" style="display:none;">
+        <div class="popup-content settings-box">
+            <h2>SETTINGS</h2>
+            <div class="setting-item">
+                <span>Music & Sound</span>
+                <button class="toggleBtn" id="soundToggle">ON</button>
+            </div>
+            <div class="setting-item">
+                <span>Vibration</span>
+                <button class="toggleBtn">ON</button>
+            </div>
+            <div class="setting-item">
+                <span>Language</span>
+                <button class="toggleBtn" id="langResetBtn">English</button>
+            </div>
+            <button id="closeSettings" class="playBtn small">CLOSE</button>
+            <button id="resetDataBtn" class="dangerBtn">RESET PROGRESS</button>
         </div>
     </div>
 
