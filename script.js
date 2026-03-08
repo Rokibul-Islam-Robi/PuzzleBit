@@ -5,14 +5,14 @@ let gameData = {
     selectedLetters: "",
     foundWords: [],
     isMuted: localStorage.getItem("puzzleBit_muted") === "true",
-    lastRewardTime: localStorage.getItem("puzzleBit_lastReward") || 0,
+    lastRewardTime: parseInt(localStorage.getItem("puzzleBit_lastReward")) || 0,
     music: new Audio("assets/music/gameplay.mp3")
 };
 
-// Initialize Game
 async function init() {
     try {
         const response = await fetch('levels.json');
+        if (!response.ok) throw new Error("Levels not found");
         const data = await response.json();
         gameData.levels = data.levels;
         
@@ -21,44 +21,35 @@ async function init() {
         applySettings();
         startLoadingSequence();
     } catch (e) {
-        console.error("Failed to load levels", e);
+        console.error("Critical Init Error:", e);
+        // Fallback level if JSON fails
+        gameData.levels = [{number:1, theme:"Forest", bg:"", letters:["A","T"], words:["AT"]}];
+        startLoadingSequence();
     }
 }
 
 function updateCoinUI() {
     const el = document.getElementById("coinValue");
-    if(el) {
-        el.innerText = gameData.coins;
-        el.style.transform = "scale(1.2)";
-        setTimeout(() => el.style.transform = "scale(1)", 200);
-    }
+    if(el) el.innerText = gameData.coins;
     localStorage.setItem("puzzleBit_coins", gameData.coins);
 }
 
 function setupEventListeners() {
-    // Basic Flow
+    // Buttons
     document.querySelector(".playBtn").onclick = () => showScreen("gameUI");
     document.getElementById("nextLevelBtn").onclick = nextLevel;
-    
-    // Shop & Points
     document.getElementById("shuffleBtn").onclick = shuffleWheel;
     document.getElementById("hintBtn").onclick = useHint;
     document.getElementById("superHintBtn").onclick = useSuperHint;
     document.getElementById("dailyRewardBtn").onclick = getDailyReward;
-
-    // Settings
     document.getElementById("settingsBtn").onclick = () => document.getElementById("settingsModal").style.display = "flex";
     document.getElementById("closeSettings").onclick = () => document.getElementById("settingsModal").style.display = "none";
     document.getElementById("soundToggle").onclick = toggleAudio;
     document.getElementById("resetDataBtn").onclick = resetProgress;
-    document.getElementById("langResetBtn").onclick = () => {
-        document.getElementById("settingsModal").style.display = "none";
-        document.querySelector(".gameUI").style.display = "none";
-        document.querySelector(".languageScreen").style.display = "flex";
-    };
     
-    // Gameplay
-    window.onmouseup = checkWord;
+    // Desktop & Mobile Interaction
+    window.addEventListener("mouseup", checkWord);
+    window.addEventListener("touchend", checkWord);
 }
 
 function toggleAudio() {
@@ -69,32 +60,24 @@ function toggleAudio() {
 
 function applySettings() {
     const btn = document.getElementById("soundToggle");
-    if(gameData.isMuted) {
-        btn.innerText = "OFF";
-        btn.style.background = "#ff7675";
-        gameData.music.pause();
-    } else {
-        btn.innerText = "ON";
-        btn.style.background = "#6bd03f";
-        if(document.querySelector(".gameUI").style.display === "flex") {
-            gameData.music.play().catch(() => {});
-        }
+    if(btn) {
+        btn.innerText = gameData.isMuted ? "OFF" : "ON";
+        btn.style.background = gameData.isMuted ? "#ff7675" : "#6bd03f";
     }
+    gameData.isMuted ? gameData.music.pause() : (gameData.music.paused && document.querySelector(".gameUI").style.display === "flex" ? gameData.music.play() : null);
 }
 
 function getDailyReward() {
     const now = Date.now();
     const oneDay = 24 * 60 * 60 * 1000;
-    
     if (now - gameData.lastRewardTime > oneDay) {
         gameData.coins += 100;
         gameData.lastRewardTime = now;
         localStorage.setItem("puzzleBit_lastReward", now);
         updateCoinUI();
-        alert("💎 You got 100 Daily Gems!");
+        alert("💎 +100 Gems Claimed!");
     } else {
-        const remaining = Math.ceil((oneDay - (now - gameData.lastRewardTime)) / (60 * 60 * 1000));
-        alert(`Come back in ${remaining} hours for more gems!`);
+        alert("Check back later for more gems!");
     }
 }
 
@@ -117,7 +100,6 @@ function showScreen(screenClass) {
 
 function loadLevel() {
     if(gameData.currentLevelIndex >= gameData.levels.length) gameData.currentLevelIndex = 0;
-
     let level = gameData.levels[gameData.currentLevelIndex];
     document.getElementById("currentLevel").innerText = gameData.currentLevelIndex + 1;
     document.querySelector(".gameUI").style.backgroundImage = `url(${level.bg})`;
@@ -125,23 +107,20 @@ function loadLevel() {
 
     gameData.foundWords = [];
     gameData.selectedLetters = "";
-    
-    const grid = document.getElementById("puzzleGrid");
-    grid.innerHTML = "";
+    document.getElementById("puzzleGrid").innerHTML = "";
     
     level.words.forEach(word => {
-        const wordRow = document.createElement("div");
-        wordRow.className = "word-row";
-        wordRow.dataset.word = word;
-        for(let i=0; i<word.length; i++) {
+        const row = document.createElement("div");
+        row.className = "word-row";
+        row.dataset.word = word;
+        for(let char of word) {
             let box = document.createElement("div");
             box.className = "box";
-            box.dataset.letter = word[i];
-            wordRow.appendChild(box);
+            box.dataset.letter = char;
+            row.appendChild(box);
         }
-        grid.appendChild(wordRow);
+        document.getElementById("puzzleGrid").appendChild(row);
     });
-
     renderWheel(level.letters);
 }
 
@@ -154,7 +133,10 @@ function renderWheel(letters) {
         span.innerText = char;
         let angle = i * (360 / letters.length);
         span.style.transform = `rotate(${angle}deg) translate(90px) rotate(-${angle}deg)`;
-        span.onmousedown = (e) => { e.preventDefault(); selectLetter(span, char); };
+        
+        const select = (e) => { e.preventDefault(); selectLetter(span, char); };
+        span.onmousedown = select;
+        span.ontouchstart = select;
         span.onmouseenter = (e) => { if(e.buttons === 1) selectLetter(span, char); };
         wheel.appendChild(span);
     });
@@ -208,8 +190,7 @@ function nextLevel() {
 
 function shuffleWheel() {
     let level = gameData.levels[gameData.currentLevelIndex];
-    let letters = [...level.letters].sort(() => Math.random() - 0.5);
-    renderWheel(letters);
+    renderWheel([...level.letters].sort(() => Math.random() - 0.5));
 }
 
 function useHint() {
@@ -223,46 +204,35 @@ function useHint() {
             target.classList.add("active");
             checkGridCompletion();
         }
-    } else alert("Not enough gems!");
+    } else alert("Need more gems!");
 }
 
 function useSuperHint() {
     if(gameData.coins >= 300) {
-        const hiddenRows = Array.from(document.querySelectorAll(".word-row")).filter(row => {
-            return !Array.from(row.querySelectorAll(".box")).every(b => b.classList.contains("active"));
-        });
+        const hiddenRows = Array.from(document.querySelectorAll(".word-row")).filter(row => !Array.from(row.querySelectorAll(".box")).every(b => b.classList.contains("active")));
         if(hiddenRows.length > 0) {
             gameData.coins -= 300;
             updateCoinUI();
             const word = hiddenRows[0].dataset.word;
             gameData.foundWords.push(word);
             fillGrid(word);
-            if(gameData.foundWords.length === gameData.levels[gameData.currentLevelIndex].words.length) {
-                setTimeout(showCompletePopup, 600);
-            }
+            if(gameData.foundWords.length === gameData.levels[gameData.currentLevelIndex].words.length) setTimeout(showCompletePopup, 600);
         }
-    } else alert("Not enough gems for Super Hint!");
+    } else alert("Need 300 gems!");
 }
 
 function checkGridCompletion() {
     document.querySelectorAll(".word-row").forEach(row => {
         const word = row.dataset.word;
-        if(!gameData.foundWords.includes(word)) {
-            if(Array.from(row.querySelectorAll(".box")).every(b => b.classList.contains("active"))) {
-                gameData.foundWords.push(word);
-                if(gameData.foundWords.length === gameData.levels[gameData.currentLevelIndex].words.length) {
-                    setTimeout(showCompletePopup, 600);
-                }
-            }
+        if(!gameData.foundWords.includes(word) && Array.from(row.querySelectorAll(".box")).every(b => b.classList.contains("active"))) {
+            gameData.foundWords.push(word);
+            if(gameData.foundWords.length === gameData.levels[gameData.currentLevelIndex].words.length) setTimeout(showCompletePopup, 600);
         }
     });
 }
 
 function resetProgress() {
-    if(confirm("Are you sure you want to clear all coins and level progress?")) {
-        localStorage.clear();
-        location.reload();
-    }
+    if(confirm("Reset all progress and gems?")) { localStorage.clear(); location.reload(); }
 }
 
 window.onload = init;
