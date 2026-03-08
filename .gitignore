@@ -1,11 +1,11 @@
-# OS files
+node_modules/
+dist/
+build/
+.vercel
+.env
+*.log
+venv/
+backend/
+frontend/
 .DS_Store
 Thumbs.db
-
-# Project folders from previous steps (if you want to keep them local only)
-# backend/
-# frontend/
-# venv/
-
-# Logs
-*.log
