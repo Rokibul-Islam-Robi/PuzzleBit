@@ -1,0 +1,39 @@
+{
+  "levels": [
+    {
+      "number": 1,
+      "theme": "forest",
+      "bg": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=1200&q=80",
+      "letters": ["T", "A", "C"],
+      "words": ["CAT", "ACT"]
+    },
+    {
+      "number": 2,
+      "theme": "mountain",
+      "bg": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
+      "letters": ["B", "A", "T"],
+      "words": ["BAT", "TAB"]
+    },
+    {
+      "number": 3,
+      "theme": "desert",
+      "bg": "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?auto=format&fit=crop&w=1200&q=80",
+      "letters": ["D", "O", "G"],
+      "words": ["DOG", "GOD"]
+    },
+    {
+      "number": 4,
+      "theme": "pyramid",
+      "bg": "https://images.unsplash.com/photo-1503177119275-0aa32b3a9368?auto=format&fit=crop&w=1200&q=80",
+      "letters": ["L", "I", "E"],
+      "words": ["LIE", "ELI"]
+    },
+    {
+      "number": 5,
+      "theme": "beach",
+      "bg": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+      "letters": ["S", "U", "N"],
+      "words": ["SUN"]
+    }
+  ]
+}
