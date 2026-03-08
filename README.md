@@ -6,6 +6,7 @@ A professional, modern Word Puzzle game featuring **50 unique levels** with scal
 
 ### 🎮 Game Preview
 ![PuzzleBit Word Preview](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmX_4CRSXnom-8BXM9JuSYHPlzm_LSFa3SPA&s)
+
 *The immersive loading sequence and vibrant puzzle world.*
 
 ### 📺 Gameplay Highlights
