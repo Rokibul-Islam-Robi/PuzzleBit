@@ -2,6 +2,16 @@
 
 A modern, addictive 3D puzzle game built with Three.js, featuring smooth graphics, animated interfaces, and engaging gameplay mechanics.
 
+## 🎬 Game Visualization
+
+### 🎮 Game Preview
+![PuzzleBit Game Preview](https://via.placeholder.com/800x450.png?text=PuzzleBit+3D+Gameplay+Preview)
+*Capture of the immersive 3D puzzle environment.*
+
+### 📺 Gameplay Demo
+[Watch the Gameplay Video](https://via.placeholder.com/800x450.png?text=Click+to+Watch+Gameplay+Demo)
+*(Replace these placeholders with your actual game screenshots and video links!)*
+
 ## 🎮 Game Features
 
 ### Core Gameplay
