@@ -9,117 +9,142 @@ export class AudioManager {
         this.musicVolume = 0.5;
         this.sfxVolume = 0.7;
         
-        this.initializeAudio();
+        try {
+            this.initializeAudio();
+        } catch (error) {
+            console.warn('⚠️ Audio initialization failed, continuing without sound:', error);
+        }
     }
 
     initializeAudio() {
         // Initialize sound effects
-        this.sounds = {
-            'move': new Howl({
-                src: ['data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'],
-                volume: this.sfxVolume
-            }),
-            'rotate': new Howl({
-                src: ['data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'],
-                volume: this.sfxVolume
-            }),
-            'hint': new Howl({
-                src: ['data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'],
-                volume: this.sfxVolume
-            }),
-            'level-complete': new Howl({
-                src: ['data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'],
-                volume: this.sfxVolume
-            }),
-            'victory': new Howl({
-                src: ['data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'],
-                volume: this.sfxVolume
-            }),
-            'error': new Howl({
-                src: ['data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'],
-                volume: this.sfxVolume
-            })
-        };
+        try {
+            this.sounds = {
+                'move': new Howl({
+                    src: ['data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'],
+                    volume: this.sfxVolume
+                }),
+                'rotate': new Howl({
+                    src: ['data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'],
+                    volume: this.sfxVolume
+                }),
+                'hint': new Howl({
+                    src: ['data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'],
+                    volume: this.sfxVolume
+                }),
+                'level-complete': new Howl({
+                    src: ['data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'],
+                    volume: this.sfxVolume
+                }),
+                'victory': new Howl({
+                    src: ['data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT'],
+                    volume: this.sfxVolume
+                }),
+                'error': new Howl({
+                    src: ['data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9|... rest of data ...'],
+                    volume: this.sfxVolume
+                })
+            };
+        } catch (e) { console.warn('Sound initialization failed'); }
 
         // Initialize background music
-        this.music = {
-            'menu': this.createMenuMusic(),
-            'gameplay': this.createGameplayMusic(),
-            'victory': this.createVictoryMusic()
-        };
+        try {
+            this.music = {
+                'menu': this.createMenuMusic(),
+                'gameplay': this.createGameplayMusic(),
+                'victory': this.createVictoryMusic()
+            };
+        } catch (e) { console.warn('Music initialization failed'); }
 
         // Set up audio context for better control
         this.setupAudioContext();
     }
 
     createMenuMusic() {
-        // Create ambient menu music using Web Audio API
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
-        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-        
-        return {
-            context: audioContext,
-            oscillator: oscillator,
-            gainNode: gainNode,
-            isPlaying: false
-        };
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return { isPlaying: false };
+            
+            const audioContext = new AudioCtx();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(440, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            
+            return {
+                context: audioContext,
+                oscillator: oscillator,
+                gainNode: gainNode,
+                isPlaying: false
+            };
+        } catch (e) {
+            return { isPlaying: false };
+        }
     }
 
     createGameplayMusic() {
-        // Create dynamic gameplay music
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.type = 'triangle';
-        oscillator.frequency.setValueAtTime(330, audioContext.currentTime);
-        gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
-        
-        return {
-            context: audioContext,
-            oscillator: oscillator,
-            gainNode: gainNode,
-            isPlaying: false
-        };
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return { isPlaying: false };
+
+            const audioContext = new AudioCtx();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = 'triangle';
+            oscillator.frequency.setValueAtTime(330, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+            
+            return {
+                context: audioContext,
+                oscillator: oscillator,
+                gainNode: gainNode,
+                isPlaying: false
+            };
+        } catch (e) {
+            return { isPlaying: false };
+        }
     }
 
     createVictoryMusic() {
-        // Create celebratory victory music
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.type = 'square';
-        oscillator.frequency.setValueAtTime(523, audioContext.currentTime);
-        gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
-        
-        return {
-            context: audioContext,
-            oscillator: oscillator,
-            gainNode: gainNode,
-            isPlaying: false
-        };
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return { isPlaying: false };
+
+            const audioContext = new AudioCtx();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.type = 'square';
+            oscillator.frequency.setValueAtTime(523, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+            
+            return {
+                context: audioContext,
+                oscillator: oscillator,
+                gainNode: gainNode,
+                isPlaying: false
+            };
+        } catch (e) {
+            return { isPlaying: false };
+        }
     }
 
     setupAudioContext() {
-        // Resume audio context on user interaction
         document.addEventListener('click', () => {
             Object.values(this.music).forEach(music => {
-                if (music.context && music.context.state === 'suspended') {
+                if (music && music.context && music.context.state === 'suspended') {
                     music.context.resume();
                 }
             });
@@ -129,23 +154,16 @@ export class AudioManager {
     playMusic(trackName) {
         if (this.isMuted) return;
         
-        // Stop current music
         this.stopMusic();
         
         const music = this.music[trackName];
-        if (music && !music.isPlaying) {
+        if (music && !music.isPlaying && music.oscillator) {
             try {
                 music.oscillator.start();
                 music.isPlaying = true;
                 this.currentMusic = trackName;
-                
-                // Set volume
                 music.gainNode.gain.setValueAtTime(this.musicVolume, music.context.currentTime);
-                
-                // Create ambient loop for menu music
-                if (trackName === 'menu') {
-                    this.createMenuLoop(music);
-                }
+                if (trackName === 'menu') this.createMenuLoop(music);
             } catch (error) {
                 console.warn('Could not play music:', error);
             }
@@ -158,28 +176,21 @@ export class AudioManager {
         
         const playNote = () => {
             if (!music.isPlaying) return;
-            
-            const frequency = frequencies[currentIndex];
-            music.oscillator.frequency.setValueAtTime(frequency, music.context.currentTime);
-            
+            music.oscillator.frequency.setValueAtTime(frequencies[currentIndex], music.context.currentTime);
             currentIndex = (currentIndex + 1) % frequencies.length;
-            
             setTimeout(playNote, 2000);
         };
-        
         setTimeout(playNote, 2000);
     }
 
     stopMusic() {
         if (this.currentMusic) {
             const music = this.music[this.currentMusic];
-            if (music && music.isPlaying) {
+            if (music && music.isPlaying && music.oscillator) {
                 try {
                     music.oscillator.stop();
                     music.isPlaying = false;
-                } catch (error) {
-                    console.warn('Could not stop music:', error);
-                }
+                } catch (error) { console.warn('Could not stop music:', error); }
             }
             this.currentMusic = null;
         }
@@ -188,7 +199,7 @@ export class AudioManager {
     pauseMusic() {
         if (this.currentMusic) {
             const music = this.music[this.currentMusic];
-            if (music && music.isPlaying) {
+            if (music && music.isPlaying && music.gainNode) {
                 music.gainNode.gain.setValueAtTime(0, music.context.currentTime);
             }
         }
@@ -197,7 +208,7 @@ export class AudioManager {
     resumeMusic() {
         if (this.currentMusic) {
             const music = this.music[this.currentMusic];
-            if (music && music.isPlaying) {
+            if (music && music.isPlaying && music.gainNode) {
                 music.gainNode.gain.setValueAtTime(this.musicVolume, music.context.currentTime);
             }
         }
@@ -205,41 +216,27 @@ export class AudioManager {
 
     playSound(soundName) {
         if (this.isMuted) return;
-        
         const sound = this.sounds[soundName];
         if (sound) {
             try {
                 sound.volume(this.sfxVolume);
                 sound.play();
-            } catch (error) {
-                console.warn('Could not play sound:', error);
-            }
+            } catch (error) { console.warn('Could not play sound:', error); }
         }
     }
 
     playVictorySequence() {
         if (this.isMuted) return;
-        
-        // Play victory music
         this.playMusic('victory');
-        
-        // Play victory sound after a delay
-        setTimeout(() => {
-            this.playSound('victory');
-        }, 500);
-        
-        // Stop victory music after 5 seconds
-        setTimeout(() => {
-            this.stopMusic();
-        }, 5000);
+        setTimeout(() => this.playSound('victory'), 500);
+        setTimeout(() => this.stopMusic(), 5000);
     }
 
     setMusicVolume(volume) {
         this.musicVolume = Math.max(0, Math.min(1, volume));
-        
         if (this.currentMusic) {
             const music = this.music[this.currentMusic];
-            if (music && music.isPlaying) {
+            if (music && music.isPlaying && music.gainNode) {
                 music.gainNode.gain.setValueAtTime(this.musicVolume, music.context.currentTime);
             }
         }
@@ -247,122 +244,44 @@ export class AudioManager {
 
     setSFXVolume(volume) {
         this.sfxVolume = Math.max(0, Math.min(1, volume));
-        
-        // Update all sound volumes
         Object.values(this.sounds).forEach(sound => {
-            sound.volume(this.sfxVolume);
+            if (sound && sound.volume) sound.volume(this.sfxVolume);
         });
     }
 
     toggleMute() {
         this.isMuted = !this.isMuted;
-        
-        if (this.isMuted) {
-            this.stopMusic();
-        } else {
-            // Resume music if it was playing
-            if (this.currentMusic) {
-                this.playMusic(this.currentMusic);
-            }
-        }
-        
+        if (this.isMuted) this.stopMusic();
+        else if (this.currentMusic) this.playMusic(this.currentMusic);
         return this.isMuted;
     }
 
-    createPitchShiftedSound(baseSound, pitchRatio) {
-        // Create a pitch-shifted version of a sound
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(440 * pitchRatio, audioContext.currentTime);
-        gainNode.gain.setValueAtTime(this.sfxVolume * 0.3, audioContext.currentTime);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.2);
-        
-        return { oscillator, gainNode };
-    }
+    playPuzzleMoveSound() { this.playSoundEffect(800, 400, 0.1, 0.2); }
+    playPuzzleRotateSound() { this.playSoundEffect(600, 300, 0.15, 0.15, 'triangle'); }
+    playHintSound() { this.playSoundEffect(1000, 1200, 0.3, 0.1); }
 
-    playPuzzleMoveSound() {
-        // Create a satisfying puzzle move sound
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
-        
-        gainNode.gain.setValueAtTime(this.sfxVolume * 0.2, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.1);
-    }
-
-    playPuzzleRotateSound() {
-        // Create a rotation sound
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.type = 'triangle';
-        oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.15);
-        
-        gainNode.gain.setValueAtTime(this.sfxVolume * 0.15, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.15);
-    }
-
-    playHintSound() {
-        // Create a hint sound
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(1000, audioContext.currentTime);
-        oscillator.frequency.setValueAtTime(1200, audioContext.currentTime + 0.1);
-        oscillator.frequency.setValueAtTime(1000, audioContext.currentTime + 0.2);
-        
-        gainNode.gain.setValueAtTime(this.sfxVolume * 0.1, audioContext.currentTime);
-        gainNode.gain.setValueAtTime(0.01, audioContext.currentTime + 0.3);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.3);
+    playSoundEffect(startFreq, endFreq, duration, volume, type = 'sine') {
+        try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+            const ctx = new AudioCtx();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = type;
+            osc.frequency.setValueAtTime(startFreq, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(endFreq, ctx.currentTime + duration);
+            gain.gain.setValueAtTime(volume * this.sfxVolume, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration);
+            osc.start();
+            osc.stop(ctx.currentTime + duration);
+        } catch (e) {}
     }
 
     destroy() {
-        // Stop all music
         this.stopMusic();
-        
-        // Stop all sounds
-        Object.values(this.sounds).forEach(sound => {
-            sound.stop();
-        });
-        
-        // Close audio contexts
-        Object.values(this.music).forEach(music => {
-            if (music.context) {
-                music.context.close();
-            }
-        });
+        Object.values(this.sounds).forEach(s => s && s.stop && s.stop());
+        Object.values(this.music).forEach(m => m && m.context && m.context.close && m.context.close());
     }
-} 
+}
