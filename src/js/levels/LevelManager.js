@@ -109,12 +109,16 @@ export class LevelManager {
                 this.unlockLevel(levelNumber + 1);
             }
             
+            const stars = this.calculateStars(levelNumber, score, time, moves);
+            const rewardPoints = (score * 0.1) + (stars * 100);
+            
             return {
                 level: levelNumber,
                 score: score,
                 time: time,
                 moves: moves,
-                stars: this.calculateStars(levelNumber, score, time, moves),
+                stars: stars,
+                rewardPoints: Math.floor(rewardPoints),
                 isPerfect: this.isPerfectCompletion(levelNumber, score, time, moves)
             };
         }

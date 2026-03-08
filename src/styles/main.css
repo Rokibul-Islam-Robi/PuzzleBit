@@ -147,6 +147,8 @@ h1 {
     padding: 10px 15px;
     border-radius: 12px;
     border: 1px solid var(--glass-border);
+    font-size: 0.9rem;
+    font-weight: bold;
 }
 
 .puzzle-grid {
@@ -166,7 +168,7 @@ h1 {
     border-radius: 12px;
     cursor: pointer;
     position: relative;
-    transition: transform 0.1s ease;
+    transition: all 0.2s ease;
     box-shadow: inset 0 -4px 8px rgba(0,0,0,0.3), 
                 inset 0 4px 8px rgba(255,255,255,0.2);
 }
@@ -184,21 +186,48 @@ h1 {
 }
 
 .puzzle-tile.selected {
-    transform: scale(0.9);
+    transform: scale(0.85);
     outline: 3px solid white;
     z-index: 10;
+    box-shadow: 0 0 20px white;
 }
 
-.puzzle-tile.hint {
-    animation: pulse-hint 1s infinite alternate;
+/* Power-ups */
+.power-ups-bar {
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
 }
 
+.power-up-btn {
+    flex: 1;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    color: white;
+    padding: 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.power-up-btn:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+}
+
+.power-up-btn:active {
+    transform: scale(0.95);
+}
+
+/* Animations */
 @keyframes pulse-hint {
-    from { box-shadow: 0 0 0px var(--accent); }
-    to { box-shadow: 0 0 20px var(--accent); }
+    from { box-shadow: 0 0 0px var(--accent); transform: scale(1); }
+    to { box-shadow: 0 0 30px var(--accent); transform: scale(1.1); }
 }
 
-/* Score Animation */
 .score-particle {
     position: fixed;
     color: var(--accent);

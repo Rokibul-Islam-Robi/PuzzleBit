@@ -121,18 +121,97 @@ class PuzzleBitGame {
         container.className = 'puzzle-grid';
         document.getElementById('game-ui').appendChild(container);
         
-        // Add Header if missing
-        if (!document.querySelector('.game-header')) {
-            const header = document.createElement('div');
-            header.className = 'game-header';
-            header.innerHTML = `
-                <div class="stat-box">Score: <span id="score">0</span></div>
-                <div class="stat-box">Moves: <span id="moves">0</span></div>
-                <div class="stat-box">Level: <span id="level-num">1</span></div>
-            `;
-            document.getElementById('game-ui').prepend(header);
-        }
+        // Header
+        const header = document.createElement('div');
+        header.className = 'game-header';
+        header.innerHTML = `
+            <div class="stat-box">⭐ <span id="score">0</span></div>
+            <div class="stat-box">💎 <span id="total-points">${this.totalPoints}</span></div>
+            <div class="stat-box">🎯 Lvl <span id="level-num">1</span></div>
+        `;
+        document.getElementById('game-ui').prepend(header);
+
+        // Power-ups Bar
+        const powerUps = document.createElement('div');
+        powerUps.className = 'power-ups-bar';
+        powerUps.innerHTML = `
+            <button class="power-up-btn" id="hint-benefit-btn">💡 Hint (200)</button>
+            <button class="power-up-btn" id="shuffle-benefit-btn">🔀 Shuffle (500)</button>
+        `;
+        document.getElementById('game-ui').appendChild(powerUps);
+
+        document.getElementById('hint-benefit-btn')?.addEventListener('click', () => this.buyHint());
+        document.getElementById('shuffle-benefit-btn')?.addEventListener('click', () => this.buyShuffle());
+
         return container;
+    }
+
+    buyHint() {
+        if (this.usePoints(200)) {
+            this.showHint();
+        }
+    }
+
+    buyShuffle() {
+        if (this.usePoints(500)) {
+            this.shuffleBoard();
+        }
+    }
+
+    async shuffleBoard() {
+        this.isAnimating = true;
+        const tiles = this.grid.flat();
+        
+        // Animate out
+        await gsap.to(tiles.map(t => t.element), { scale: 0, rotation: 180, duration: 0.5, stagger: 0.01 });
+        
+        // Logic shuffle
+        tiles.forEach(t => {
+            t.color = this.colors[Math.floor(Math.random() * this.colors.length)];
+            t.element.style.backgroundColor = t.color;
+        });
+        this.resolveInitialMatches();
+        
+        // Animate in
+        await gsap.to(tiles.map(t => t.element), { scale: 1, rotation: 0, duration: 0.5, stagger: 0.01 });
+        this.isAnimating = false;
+    }
+
+    showHint() {
+        const possibleMoves = this.findPossibleMoves();
+        if (possibleMoves.length > 0) {
+            const move = possibleMoves[0];
+            const t1 = this.grid[move.r1][move.c1].element;
+            const t2 = this.grid[move.r2][move.c2].element;
+            gsap.to([t1, t2], { scale: 1.2, duration: 0.5, yoyo: true, repeat: 3, ease: "sine.inOut" });
+        }
+    }
+
+    findPossibleMoves() {
+        const moves = [];
+        for (let r = 0; r < this.gridSize; r++) {
+            for (let c = 0; c < this.gridSize; c++) {
+                // Check Horizontal Swap
+                if (c < this.gridSize - 1) {
+                    this.tempSwap(r, c, r, c + 1);
+                    if (this.findMatches().length > 0) moves.push({ r1: r, c1: c, r2: r, c2: c + 1 });
+                    this.tempSwap(r, c, r, c + 1);
+                }
+                // Check Vertical Swap
+                if (r < this.gridSize - 1) {
+                    this.tempSwap(r, c, r + 1, c);
+                    if (this.findMatches().length > 0) moves.push({ r1: r, c1: c, r2: r + 1, c2: c });
+                    this.tempSwap(r, c, r + 1, c);
+                }
+            }
+        }
+        return moves;
+    }
+
+    tempSwap(r1, c1, r2, c2) {
+        const temp = this.grid[r1][c1].color;
+        this.grid[r1][c1].color = this.grid[r2][c2].color;
+        this.grid[r2][c2].color = temp;
     }
 
     createTile(r, c) {
@@ -303,6 +382,7 @@ class PuzzleBitGame {
             this.gameTime,
             this.moves
         );
+        this.addPoints(stats.rewardPoints);
         this.uiManager.showScreen('level-complete');
         document.getElementById('final-score').innerText = stats.score;
         this.audioManager.playVictorySequence();
@@ -316,9 +396,13 @@ class PuzzleBitGame {
     }
 
     updateStats() {
-        document.getElementById('score').innerText = this.score;
-        document.getElementById('moves').innerText = this.moves;
-        document.getElementById('level-num').innerText = this.levelManager.currentLevel;
+        const scoreEl = document.getElementById('score');
+        const pointsEl = document.getElementById('total-points');
+        const levelEl = document.getElementById('level-num');
+        
+        if (scoreEl) scoreEl.innerText = this.score;
+        if (pointsEl) pointsEl.innerText = this.totalPoints;
+        if (levelEl) levelEl.innerText = this.levelManager.currentLevel;
     }
 
     returnToMenu() {
