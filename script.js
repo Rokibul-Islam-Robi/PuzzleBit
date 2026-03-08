@@ -12,7 +12,7 @@ let gameData = {
 async function init() {
     try {
         const response = await fetch('levels.json');
-        if (!response.ok) throw new Error("Levels not found");
+        if (!response.ok) throw new Error("Levels data missing");
         const data = await response.json();
         gameData.levels = data.levels;
         
@@ -21,9 +21,8 @@ async function init() {
         applySettings();
         startLoadingSequence();
     } catch (e) {
-        console.error("Critical Init Error:", e);
-        gameData.levels = [{number:1, theme:"Vibrant Maze", bg:"https://png.pngtree.com/thumb_back/fh260/background/20251204/pngtree-abstract-geometric-maze-with-game-over-text-rendered-in-a-vibrant-image_20710732.webp", letters:["A","T"], words:["AT"]}];
-        startLoadingSequence();
+        console.error("Initialization failed:", e);
+        alert("Game error: Please check your connection.");
     }
 }
 
@@ -40,6 +39,7 @@ function setupEventListeners() {
     document.getElementById("hintBtn").onclick = useHint;
     document.getElementById("superHintBtn").onclick = useSuperHint;
     document.getElementById("dailyRewardBtn").onclick = getDailyReward;
+    
     document.getElementById("pauseBtn").onclick = () => openModal("PAUSED");
     document.getElementById("settingsBtn").onclick = () => openModal("SETTINGS");
     document.getElementById("resumeBtn").onclick = closeModal;
@@ -48,8 +48,8 @@ function setupEventListeners() {
     document.getElementById("soundToggle").onclick = toggleAudio;
     document.getElementById("resetDataBtn").onclick = resetProgress;
     
-    window.addEventListener("mouseup", checkWord);
-    window.addEventListener("touchend", checkWord);
+    // Global release to check word
+    ["mouseup", "touchend"].forEach(evt => window.addEventListener(evt, checkWord));
 }
 
 function openModal(title) {
@@ -67,7 +67,7 @@ function previousLevel() {
         closeModal();
         loadLevel();
     } else {
-        alert("You are at the first level!");
+        alert("You are at Level 1!");
     }
 }
 
@@ -83,11 +83,7 @@ function applySettings() {
         btn.innerText = gameData.isMuted ? "OFF" : "ON";
         btn.style.background = gameData.isMuted ? "#ff7675" : "#6bd03f";
     }
-    if(gameData.isMuted) {
-        gameData.music.pause();
-    } else if(document.querySelector(".gameUI").style.display === "flex") {
-        gameData.music.play().catch(() => {});
-    }
+    gameData.isMuted ? gameData.music.pause() : (gameData.music.paused && document.querySelector(".gameUI").style.display === "flex" ? gameData.music.play() : null);
 }
 
 function getDailyReward() {
@@ -98,9 +94,9 @@ function getDailyReward() {
         gameData.lastRewardTime = now;
         localStorage.setItem("puzzleBit_lastReward", now);
         updateCoinUI();
-        alert("💎 +100 Gems Claimed!");
+        alert("🎁 100 Gems Added!");
     } else {
-        alert("Check back later for more gems!");
+        alert("Daily reward already claimed today!");
     }
 }
 
@@ -122,7 +118,9 @@ function showScreen(screenClass) {
 }
 
 function loadLevel() {
+    if(!gameData.levels.length) return;
     if(gameData.currentLevelIndex >= gameData.levels.length) gameData.currentLevelIndex = 0;
+    
     let level = gameData.levels[gameData.currentLevelIndex];
     document.getElementById("currentLevel").innerText = gameData.currentLevelIndex + 1;
     document.querySelector(".gameUI").style.backgroundImage = `url(${level.bg})`;
@@ -156,6 +154,7 @@ function renderWheel(letters) {
         span.innerText = char;
         let angle = i * (360 / letters.length);
         span.style.transform = `rotate(${angle}deg) translate(90px) rotate(-${angle}deg)`;
+        
         const select = (e) => { e.preventDefault(); selectLetter(span, char); };
         span.onmousedown = select;
         span.ontouchstart = select;
@@ -175,7 +174,7 @@ function checkWord() {
     if(!gameData.selectedLetters) return;
     const word = gameData.selectedLetters;
     const level = gameData.levels[gameData.currentLevelIndex];
-    if(level.words.includes(word) && !gameData.foundWords.includes(word)) {
+    if(level && level.words.includes(word) && !gameData.foundWords.includes(word)) {
         gameData.foundWords.push(word);
         fillGrid(word);
         if(gameData.foundWords.length === level.words.length) setTimeout(showCompletePopup, 600);
@@ -210,7 +209,7 @@ function nextLevel() {
 
 function shuffleWheel() {
     let level = gameData.levels[gameData.currentLevelIndex];
-    renderWheel([...level.letters].sort(() => Math.random() - 0.5));
+    if(level) renderWheel([...level.letters].sort(() => Math.random() - 0.5));
 }
 
 function useHint() {
@@ -224,7 +223,7 @@ function useHint() {
             target.classList.add("active");
             checkGridCompletion();
         }
-    } else alert("Need more gems!");
+    } else alert("Need 100 Gems!");
 }
 
 function useSuperHint() {
@@ -238,21 +237,22 @@ function useSuperHint() {
             fillGrid(word);
             if(gameData.foundWords.length === gameData.levels[gameData.currentLevelIndex].words.length) setTimeout(showCompletePopup, 600);
         }
-    } else alert("Need 300 gems!");
+    } else alert("Need 300 Gems!");
 }
 
 function checkGridCompletion() {
+    const level = gameData.levels[gameData.currentLevelIndex];
     document.querySelectorAll(".word-row").forEach(row => {
         const word = row.dataset.word;
         if(!gameData.foundWords.includes(word) && Array.from(row.querySelectorAll(".box")).every(b => b.classList.contains("active"))) {
             gameData.foundWords.push(word);
-            if(gameData.foundWords.length === gameData.levels[gameData.currentLevelIndex].words.length) setTimeout(showCompletePopup, 600);
+            if(gameData.foundWords.length === level.words.length) setTimeout(showCompletePopup, 600);
         }
     });
 }
 
 function resetProgress() {
-    if(confirm("Reset all progress and gems?")) { localStorage.clear(); location.reload(); }
+    if(confirm("Delete all progress and gems?")) { localStorage.clear(); location.reload(); }
 }
 
 window.onload = init;
