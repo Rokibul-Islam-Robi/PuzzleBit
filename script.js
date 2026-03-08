@@ -22,7 +22,6 @@ async function init() {
         startLoadingSequence();
     } catch (e) {
         console.error("Critical Init Error:", e);
-        // Fallback level if JSON fails
         gameData.levels = [{number:1, theme:"Forest", bg:"", letters:["A","T"], words:["AT"]}];
         startLoadingSequence();
     }
@@ -35,21 +34,49 @@ function updateCoinUI() {
 }
 
 function setupEventListeners() {
-    // Buttons
+    // Basic Flow
     document.querySelector(".playBtn").onclick = () => showScreen("gameUI");
     document.getElementById("nextLevelBtn").onclick = nextLevel;
+    
+    // Shop & Points
     document.getElementById("shuffleBtn").onclick = shuffleWheel;
     document.getElementById("hintBtn").onclick = useHint;
     document.getElementById("superHintBtn").onclick = useSuperHint;
     document.getElementById("dailyRewardBtn").onclick = getDailyReward;
-    document.getElementById("settingsBtn").onclick = () => document.getElementById("settingsModal").style.display = "flex";
-    document.getElementById("closeSettings").onclick = () => document.getElementById("settingsModal").style.display = "none";
+
+    // Navigation & Pause Logic
+    document.getElementById("pauseBtn").onclick = () => openModal("PAUSED");
+    document.getElementById("settingsBtn").onclick = () => openModal("SETTINGS");
+    document.getElementById("resumeBtn").onclick = closeModal;
+    document.getElementById("restartBtn").onclick = () => { closeModal(); loadLevel(); };
+    document.getElementById("prevLevelBtn").onclick = previousLevel;
+    
+    // Settings
     document.getElementById("soundToggle").onclick = toggleAudio;
     document.getElementById("resetDataBtn").onclick = resetProgress;
     
-    // Desktop & Mobile Interaction
+    // Gameplay
     window.addEventListener("mouseup", checkWord);
     window.addEventListener("touchend", checkWord);
+}
+
+function openModal(title) {
+    document.getElementById("modalTitle").innerText = title;
+    document.getElementById("settingsModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("settingsModal").style.display = "none";
+}
+
+function previousLevel() {
+    if (gameData.currentLevelIndex > 0) {
+        gameData.currentLevelIndex--;
+        closeModal();
+        loadLevel();
+    } else {
+        alert("You are at the first level!");
+    }
 }
 
 function toggleAudio() {

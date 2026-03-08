@@ -136,6 +136,34 @@ body {
     z-index: 0;
 }
 
+.topLeft { display: flex; gap: 10px; }
+
+.navigation-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.navBtn {
+    background: #6c8cd5;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.navBtn:hover {
+    background: #4834d4;
+    transform: translateY(-2px);
+}
+
+.navBtn:active { transform: scale(0.95); }
+
 .topBar {
     width: 100%;
     padding: 20px;

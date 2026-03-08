@@ -24,7 +24,10 @@
     <!-- 3. GAMEPLAY UI -->
     <div class="gameUI" style="display:none;">
         <div class="topBar">
-            <button class="iconBtn small" id="settingsBtn">⚙️</button>
+            <div class="topLeft">
+                <button class="iconBtn small" id="pauseBtn">⏸️</button>
+                <button class="iconBtn small" id="settingsBtn">⚙️</button>
+            </div>
             <div class="level-indicator">Level <span id="currentLevel">1</span></div>
             <div class="topRight">
                 <button class="rewardBtn" id="dailyRewardBtn">🎁 Get Points</button>
@@ -52,24 +55,30 @@
         </div>
     </div>
 
-    <!-- 5. SETTINGS MODAL -->
+    <!-- 5. SETTINGS / PAUSE MODAL -->
     <div id="settingsModal" class="popup" style="display:none;">
         <div class="popup-content settings-box">
-            <h2>SETTINGS</h2>
-            <div class="setting-item">
-                <span>Music & Sound</span>
-                <button class="toggleBtn" id="soundToggle">ON</button>
+            <h2 id="modalTitle">PAUSED</h2>
+            
+            <div class="navigation-group" style="margin-bottom: 20px;">
+                <button id="resumeBtn" class="playBtn small" style="margin-bottom: 10px;">RESUME</button>
+                <button id="prevLevelBtn" class="navBtn">⬅️ PREVIOUS LEVEL</button>
+                <button id="restartBtn" class="navBtn">🔄 RESTART LEVEL</button>
             </div>
-            <div class="setting-item">
-                <span>Vibration</span>
-                <button class="toggleBtn">ON</button>
+
+            <div class="settings-group">
+                <h3>SETTINGS</h3>
+                <div class="setting-item">
+                    <span>Music & Sound</span>
+                    <button class="toggleBtn" id="soundToggle">ON</button>
+                </div>
+                <div class="setting-item">
+                    <span>Language</span>
+                    <button class="toggleBtn" id="langResetBtn">English</button>
+                </div>
             </div>
-            <div class="setting-item">
-                <span>Language</span>
-                <button class="toggleBtn" id="langResetBtn">English</button>
-            </div>
-            <button id="closeSettings" class="playBtn small">CLOSE</button>
-            <button id="resetDataBtn" class="dangerBtn">RESET PROGRESS</button>
+
+            <button id="resetDataBtn" class="dangerBtn">RESET ALL PROGRESS</button>
         </div>
     </div>
 
