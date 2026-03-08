@@ -1,0 +1,1511 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d1b69 100%);
+    color: #ffffff;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* Game Container */
+#game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Canvas */
+#game-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Loading Screen */
+.loading-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d1b69 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.loading-content {
+    text-align: center;
+    max-width: 400px;
+    padding: 2rem;
+}
+
+.logo h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+    margin-bottom: 0.5rem;
+}
+
+.logo-subtitle {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    margin-bottom: 2rem;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.loading-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+    border-radius: 4px;
+    width: 0%;
+    animation: loadingProgress 2s ease-in-out infinite;
+}
+
+.loading-text {
+    color: #a0a0a0;
+    font-size: 1rem;
+    animation: fadeInOut 2s ease-in-out infinite;
+}
+
+/* Menu Screens */
+.menu-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 50%, #2d1b69 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.menu-content {
+    text-align: center;
+    max-width: 500px;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.menu-logo h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: 3rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+    margin-bottom: 0.5rem;
+}
+
+.menu-subtitle {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    color: #a0a0a0;
+    margin-bottom: 2rem;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.menu-btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-btn.primary {
+    background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+    color: white;
+    box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+}
+
+.menu-btn.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.menu-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+
+.menu-btn.primary:hover {
+    box-shadow: 0 12px 25px rgba(255, 107, 107, 0.4);
+}
+
+.menu-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Game UI */
+.game-ui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    display: block;
+}
+
+.game-ui.hidden {
+    display: none;
+}
+
+/* Puzzle Game Container */
+.puzzle-game-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
+/* Enhanced Animated Background with Gaming Vibe */
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+    overflow: hidden;
+    perspective: 1000px;
+    z-index: -1;
+}
+
+/* Multiple background layers for depth */
+.bg-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    animation: backgroundShift 20s ease-in-out infinite;
+}
+
+.bg-layer-1 {
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+    animation: backgroundShift 15s ease-in-out infinite, float3D 8s ease-in-out infinite;
+    transform-style: preserve-3d;
+}
+
+.bg-layer-2 {
+    background: 
+        radial-gradient(circle at 60% 30%, rgba(255, 183, 77, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 30% 70%, rgba(77, 183, 255, 0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(255, 77, 183, 0.2) 0%, transparent 50%);
+    animation: backgroundShift 12s ease-in-out infinite reverse, float3D 10s ease-in-out infinite reverse;
+    transform-style: preserve-3d;
+}
+
+.bg-layer-3 {
+    background: 
+        radial-gradient(circle at 50% 50%, rgba(183, 255, 77, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 90% 10%, rgba(255, 77, 183, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 10% 90%, rgba(77, 183, 255, 0.15) 0%, transparent 50%);
+    animation: backgroundShift 18s ease-in-out infinite, float3D 12s ease-in-out infinite;
+    transform-style: preserve-3d;
+}
+
+/* Gaming particle effects */
+.bg-layer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.8), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.7), transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.5), transparent),
+        radial-gradient(2px 2px at 160px 30px, rgba(255, 255, 255, 0.8), transparent);
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    animation: particleFloat 20s linear infinite;
+    opacity: 0.3;
+}
+
+.bg-layer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(3px 3px at 50px 50px, rgba(120, 219, 255, 0.8), transparent),
+        radial-gradient(2px 2px at 150px 100px, rgba(255, 119, 198, 0.6), transparent),
+        radial-gradient(1px 1px at 250px 150px, rgba(255, 183, 77, 0.7), transparent),
+        radial-gradient(2px 2px at 350px 200px, rgba(183, 255, 77, 0.5), transparent);
+    background-repeat: repeat;
+    background-size: 300px 300px;
+    animation: particleFloat 25s linear infinite reverse;
+    opacity: 0.4;
+}
+
+/* Enhanced background animations */
+@keyframes backgroundShift {
+    0% {
+        transform: translateX(0px) translateY(0px) rotateX(0deg) rotateY(0deg);
+        background-position: 0% 0%;
+    }
+    25% {
+        transform: translateX(-20px) translateY(-10px) rotateX(5deg) rotateY(5deg);
+        background-position: 25% 25%;
+    }
+    50% {
+        transform: translateX(10px) translateY(-20px) rotateX(-3deg) rotateY(-3deg);
+        background-position: 50% 50%;
+    }
+    75% {
+        transform: translateX(-15px) translateY(15px) rotateX(8deg) rotateY(-8deg);
+        background-position: 75% 75%;
+    }
+    100% {
+        transform: translateX(0px) translateY(0px) rotateX(0deg) rotateY(0deg);
+        background-position: 100% 100%;
+    }
+}
+
+@keyframes float3D {
+    0%, 100% {
+        transform: translateZ(0px) rotateX(0deg) rotateY(0deg);
+        opacity: 0.7;
+    }
+    33% {
+        transform: translateZ(50px) rotateX(10deg) rotateY(5deg);
+        opacity: 0.9;
+    }
+    66% {
+        transform: translateZ(-30px) rotateX(-5deg) rotateY(-10deg);
+        opacity: 0.8;
+    }
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translateY(0px) translateX(0px);
+        opacity: 0.3;
+    }
+    25% {
+        transform: translateY(-20px) translateX(10px);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translateY(-40px) translateX(-10px);
+        opacity: 0.4;
+    }
+    75% {
+        transform: translateY(-20px) translateX(20px);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(0px) translateX(0px);
+        opacity: 0.3;
+    }
+}
+
+/* Gaming energy waves */
+.animated-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(90deg, transparent 0%, rgba(120, 219, 255, 0.1) 50%, transparent 100%);
+    animation: energyWave 8s ease-in-out infinite;
+    transform: translateX(-100%);
+}
+
+.animated-background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(90deg, transparent 0%, rgba(255, 119, 198, 0.1) 50%, transparent 100%);
+    animation: energyWave 12s ease-in-out infinite reverse;
+    transform: translateX(-100%);
+}
+
+@keyframes energyWave {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Gaming grid overlay */
+.animated-background .grid-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(120, 219, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(120, 219, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: gridPulse 4s ease-in-out infinite;
+    opacity: 0.3;
+}
+
+@keyframes gridPulse {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.02);
+    }
+}
+
+/* Gaming corner effects */
+.animated-background .corner-effect {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: 2px solid rgba(120, 219, 255, 0.3);
+    animation: cornerGlow 6s ease-in-out infinite;
+}
+
+.animated-background .corner-effect.top-left {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+}
+
+.animated-background .corner-effect.top-right {
+    top: 0;
+    right: 0;
+    border-left: none;
+    border-bottom: none;
+}
+
+.animated-background .corner-effect.bottom-left {
+    bottom: 0;
+    left: 0;
+    border-right: none;
+    border-top: none;
+}
+
+.animated-background .corner-effect.bottom-right {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+}
+
+@keyframes cornerGlow {
+    0%, 100% {
+        border-color: rgba(120, 219, 255, 0.3);
+        box-shadow: 0 0 20px rgba(120, 219, 255, 0.2);
+    }
+    50% {
+        border-color: rgba(255, 119, 198, 0.6);
+        box-shadow: 0 0 30px rgba(255, 119, 198, 0.4);
+    }
+}
+
+/* Game Header */
+.game-header {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.level-info, .game-stats, .game-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.level-number {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #4ecdc4;
+    text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+}
+
+.level-name {
+    font-size: 1rem;
+    color: #a0a0a0;
+    font-weight: 500;
+}
+
+.score, .moves, .timer {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Puzzle Grid */
+.puzzle-grid {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    gap: 2px;
+    padding: 2rem;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 200px);
+    max-height: 600px;
+    background: 
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 62px 62px;
+    border: 3px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 0 20px rgba(255, 255, 255, 0.1),
+        0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.puzzle-tile {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(255, 255, 255, 0.3),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(5px);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    animation: tileGlow 3s ease-in-out infinite alternate;
+}
+
+/* Tile glow animation */
+@keyframes tileGlow {
+    0% {
+        box-shadow: 
+            0 8px 16px rgba(0, 0, 0, 0.4),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+            0 0 10px rgba(255, 255, 255, 0.1);
+    }
+    100% {
+        box-shadow: 
+            0 8px 16px rgba(0, 0, 0, 0.4),
+            inset 0 2px 4px rgba(255, 255, 255, 0.3),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+            0 0 20px rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Tile inner pattern for depth */
+.tile-pattern {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(0, 0, 0, 0.2) 0%, transparent 50%);
+    border-radius: 6px;
+    pointer-events: none;
+    animation: patternShift 4s ease-in-out infinite;
+}
+
+@keyframes patternShift {
+    0%, 100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+
+/* Tile highlight for 3D effect */
+.tile-highlight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.3), transparent 60%);
+    border-radius: 6px;
+    pointer-events: none;
+    opacity: 0.7;
+    animation: highlightMove 2s ease-in-out infinite;
+}
+
+@keyframes highlightMove {
+    0%, 100% {
+        opacity: 0.7;
+        transform: translateX(0px) translateY(0px);
+    }
+    50% {
+        opacity: 0.9;
+        transform: translateX(2px) translateY(-2px);
+    }
+}
+
+.puzzle-tile::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.4), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 6px;
+}
+
+.puzzle-tile:hover::before {
+    opacity: 1;
+}
+
+.puzzle-tile:hover {
+    transform: scale(1.15) translateZ(10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 
+        0 12px 24px rgba(0, 0, 0, 0.5),
+        inset 0 2px 4px rgba(255, 255, 255, 0.4),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.7);
+    animation: hoverGlow 0.3s ease-in-out;
+}
+
+@keyframes hoverGlow {
+    0% {
+        box-shadow: 
+            0 12px 24px rgba(0, 0, 0, 0.5),
+            inset 0 2px 4px rgba(255, 255, 255, 0.4),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(255, 255, 255, 0.4);
+    }
+    100% {
+        box-shadow: 
+            0 12px 24px rgba(0, 0, 0, 0.5),
+            inset 0 2px 4px rgba(255, 255, 255, 0.4),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+            0 0 40px rgba(255, 255, 255, 0.6);
+    }
+}
+
+.puzzle-tile.selected {
+    border-color: #00d2d3;
+    box-shadow: 
+        0 0 40px rgba(0, 210, 211, 0.8),
+        inset 0 2px 4px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+    transform: scale(1.25) translateZ(20px);
+    border-width: 3px;
+    animation: selectedPulse 1s ease-in-out infinite;
+}
+
+@keyframes selectedPulse {
+    0%, 100% {
+        box-shadow: 
+            0 0 40px rgba(0, 210, 211, 0.8),
+            inset 0 2px 4px rgba(255, 255, 255, 0.5),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+        transform: scale(1.25) translateZ(20px);
+    }
+    50% {
+        box-shadow: 
+            0 0 50px rgba(0, 210, 211, 1),
+            inset 0 2px 4px rgba(255, 255, 255, 0.7),
+            inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+        transform: scale(1.3) translateZ(25px);
+    }
+}
+
+.puzzle-tile.swapping {
+    animation: swapAnimation 0.15s ease-in-out;
+}
+
+.puzzle-tile.matched {
+    animation: matchAnimation 0.5s ease-in-out;
+}
+
+.puzzle-tile.hint {
+    animation: hintAnimation 1s ease-in-out infinite;
+}
+
+.puzzle-tile.entrance-animation {
+    animation: entranceAnimation 0.6s ease-out;
+}
+
+/* Enhanced animations for deep 3D effect */
+@keyframes swapAnimation {
+    0% { 
+        transform: scale(1) translateZ(0px); 
+    }
+    50% { 
+        transform: scale(1.4) translateZ(30px) rotateX(15deg) rotateY(15deg); 
+    }
+    100% { 
+        transform: scale(1) translateZ(0px); 
+    }
+}
+
+@keyframes matchAnimation {
+    0% { 
+        transform: scale(1) translateZ(0px); 
+        opacity: 1; 
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+    50% { 
+        transform: scale(1.6) translateZ(40px); 
+        opacity: 0.8; 
+        box-shadow: 0 0 50px rgba(255, 255, 255, 0.9);
+    }
+    100% { 
+        transform: scale(1) translateZ(0px); 
+        opacity: 1; 
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+}
+
+@keyframes hintAnimation {
+    0%, 100% { 
+        box-shadow: 0 0 40px rgba(255, 215, 0, 0.6);
+        border-color: rgba(255, 215, 0, 0.8);
+        transform: scale(1) translateZ(0px);
+    }
+    50% { 
+        box-shadow: 0 0 60px rgba(255, 215, 0, 0.9);
+        border-color: rgba(255, 215, 0, 1);
+        transform: scale(1.1) translateZ(15px);
+    }
+}
+
+@keyframes entranceAnimation {
+    0% { 
+        opacity: 0; 
+        transform: scale(0) translateZ(-50px) rotateX(90deg) rotateY(90deg); 
+    }
+    100% { 
+        opacity: 1; 
+        transform: scale(1) translateZ(0px) rotateX(0deg) rotateY(0deg); 
+    }
+}
+
+/* Grid size variations */
+.puzzle-grid[data-size="6"] {
+    grid-template-columns: repeat(6, 60px);
+    grid-template-rows: repeat(6, 60px);
+}
+
+.puzzle-grid[data-size="7"] {
+    grid-template-columns: repeat(7, 60px);
+    grid-template-rows: repeat(7, 60px);
+}
+
+.puzzle-grid[data-size="8"] {
+    grid-template-columns: repeat(8, 60px);
+    grid-template-rows: repeat(8, 60px);
+}
+
+.puzzle-grid[data-size="9"] {
+    grid-template-columns: repeat(9, 60px);
+    grid-template-rows: repeat(9, 60px);
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+@keyframes loadingProgress {
+    0% { width: 0%; }
+    50% { width: 70%; }
+    100% { width: 100%; }
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .logo h1, .menu-logo h1 {
+        font-size: 2.5rem;
+    }
+    
+    .menu-content {
+        padding: 2rem;
+        margin: 1rem;
+    }
+    
+    .game-header {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .puzzle-tile {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .puzzle-grid[data-size="6"] {
+        grid-template-columns: repeat(6, 50px);
+    }
+    
+    .puzzle-grid[data-size="7"] {
+        grid-template-columns: repeat(7, 50px);
+    }
+    
+    .puzzle-grid[data-size="8"] {
+        grid-template-columns: repeat(8, 50px);
+    }
+    
+    .puzzle-grid[data-size="9"] {
+        grid-template-columns: repeat(9, 50px);
+    }
+}
+
+/* Particle Effects */
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #4ecdc4;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleFloat 3s ease-out forwards;
+}
+
+@keyframes particleFloat {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0);
+    }
+} 
+
+/* Instructions Screen */
+.instructions-content {
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 2rem;
+}
+
+.instructions-content h2 {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #ff4757, #2ed573, #3742fa);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.instructions-text {
+    margin-bottom: 2rem;
+}
+
+.instruction-section {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.instruction-section h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #00d2d3;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 10px rgba(0, 210, 211, 0.5);
+}
+
+.instruction-section p {
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+}
+
+.instruction-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.instruction-section li {
+    color: #ffffff;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.instruction-section li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    color: #2ed573;
+    font-size: 0.8rem;
+}
+
+.instruction-section strong {
+    color: #ffa502;
+    font-weight: 600;
+}
+
+/* Scrollbar styling for instructions */
+.instructions-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.instructions-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.instructions-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #ff4757, #2ed573);
+    border-radius: 4px;
+}
+
+.instructions-content::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #ff3838, #00d2d3);
+} 
+
+/* In-game Help Overlay */
+.help-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.help-content {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    max-width: 400px;
+    text-align: center;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.help-content h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #00d2d3;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 15px rgba(0, 210, 211, 0.5);
+}
+
+.help-tips {
+    margin-bottom: 1.5rem;
+}
+
+.help-tips p {
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.help-tips strong {
+    color: #ffa502;
+    font-weight: 600;
+}
+
+/* Responsive design for instructions */
+@media (max-width: 768px) {
+    .instructions-content {
+        max-width: 90vw;
+        padding: 1rem;
+    }
+    
+    .instructions-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .instruction-section {
+        padding: 0.8rem;
+    }
+    
+    .help-content {
+        max-width: 90vw;
+        padding: 1.5rem;
+    }
+    
+    .help-content h3 {
+        font-size: 1.3rem;
+    }
+} 
+
+/* Gaming bubble animations */
+.bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
+    animation: bubbleFloat 15s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.bubble-1 {
+    width: 20px;
+    height: 20px;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 20s;
+}
+
+.bubble-2 {
+    width: 15px;
+    height: 15px;
+    left: 20%;
+    animation-delay: 2s;
+    animation-duration: 18s;
+}
+
+.bubble-3 {
+    width: 25px;
+    height: 25px;
+    left: 30%;
+    animation-delay: 4s;
+    animation-duration: 22s;
+}
+
+.bubble-4 {
+    width: 12px;
+    height: 12px;
+    left: 40%;
+    animation-delay: 6s;
+    animation-duration: 16s;
+}
+
+.bubble-5 {
+    width: 18px;
+    height: 18px;
+    left: 50%;
+    animation-delay: 8s;
+    animation-duration: 19s;
+}
+
+.bubble-6 {
+    width: 22px;
+    height: 22px;
+    left: 60%;
+    animation-delay: 10s;
+    animation-duration: 21s;
+}
+
+.bubble-7 {
+    width: 14px;
+    height: 14px;
+    left: 70%;
+    animation-delay: 12s;
+    animation-duration: 17s;
+}
+
+.bubble-8 {
+    width: 28px;
+    height: 28px;
+    left: 80%;
+    animation-delay: 14s;
+    animation-duration: 24s;
+}
+
+.bubble-9 {
+    width: 16px;
+    height: 16px;
+    left: 90%;
+    animation-delay: 16s;
+    animation-duration: 18s;
+}
+
+.bubble-10 {
+    width: 24px;
+    height: 24px;
+    left: 5%;
+    animation-delay: 18s;
+    animation-duration: 20s;
+}
+
+/* Bubble glow effects */
+.bubble::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 30%;
+    height: 30%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9), transparent);
+    border-radius: 50%;
+    animation: bubbleGlow 3s ease-in-out infinite;
+}
+
+.bubble::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 20%;
+    height: 20%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1), transparent);
+    border-radius: 50%;
+    animation: bubbleSparkle 2s ease-in-out infinite;
+}
+
+/* Bubble float animation */
+@keyframes bubbleFloat {
+    0% {
+        transform: translateY(100vh) translateX(0px) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.8;
+    }
+    90% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100px) translateX(100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* Bubble glow animation */
+@keyframes bubbleGlow {
+    0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+}
+
+/* Bubble sparkle animation */
+@keyframes bubbleSparkle {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+/* Bubble trail effect */
+.bubble-trail {
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+    animation: bubbleTrail 2s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes bubbleTrail {
+    0% {
+        opacity: 0.3;
+        transform: scaleY(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scaleY(0.1);
+    }
+} 
+
+/* Additional bubble variations */
+.bubble-cyan {
+    background: radial-gradient(circle at 30% 30%, rgba(120, 219, 255, 0.8), rgba(120, 219, 255, 0.2));
+    animation-duration: 25s;
+}
+
+.bubble-pink {
+    background: radial-gradient(circle at 30% 30%, rgba(255, 119, 198, 0.8), rgba(255, 119, 198, 0.2));
+    animation-duration: 23s;
+}
+
+.bubble-orange {
+    background: radial-gradient(circle at 30% 30%, rgba(255, 183, 77, 0.8), rgba(255, 183, 77, 0.2));
+    animation-duration: 21s;
+}
+
+.bubble-green {
+    background: radial-gradient(circle at 30% 30%, rgba(183, 255, 77, 0.8), rgba(183, 255, 77, 0.2));
+    animation-duration: 27s;
+}
+
+/* Bubble pulse effect */
+.bubble-pulse {
+    animation: bubblePulse 4s ease-in-out infinite;
+}
+
+@keyframes bubblePulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.3);
+        opacity: 1;
+    }
+}
+
+/* Bubble wobble effect */
+.bubble-wobble {
+    animation: bubbleWobble 3s ease-in-out infinite;
+}
+
+@keyframes bubbleWobble {
+    0%, 100% {
+        transform: translateX(0px) rotate(0deg);
+    }
+    25% {
+        transform: translateX(5px) rotate(2deg);
+    }
+    75% {
+        transform: translateX(-5px) rotate(-2deg);
+    }
+} 
+
+/* Cool Anime Character Silhouettes */
+.anime-character {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.3;
+    filter: blur(0.5px);
+}
+
+.character-1 {
+    width: 80px;
+    height: 120px;
+    left: 5%;
+    bottom: 10%;
+    background: 
+        radial-gradient(ellipse 40px 60px at 40px 60px, rgba(120, 219, 255, 0.4), transparent),
+        radial-gradient(ellipse 30px 40px at 35px 40px, rgba(255, 119, 198, 0.3), transparent),
+        radial-gradient(ellipse 20px 30px at 45px 80px, rgba(255, 183, 77, 0.2), transparent);
+    animation: characterFloat 8s ease-in-out infinite;
+}
+
+.character-2 {
+    width: 60px;
+    height: 100px;
+    right: 8%;
+    bottom: 15%;
+    background: 
+        radial-gradient(ellipse 30px 50px at 30px 50px, rgba(255, 119, 198, 0.4), transparent),
+        radial-gradient(ellipse 25px 35px at 25px 35px, rgba(120, 219, 255, 0.3), transparent),
+        radial-gradient(ellipse 15px 25px at 35px 65px, rgba(183, 255, 77, 0.2), transparent);
+    animation: characterFloat 10s ease-in-out infinite reverse;
+}
+
+.character-3 {
+    width: 70px;
+    height: 110px;
+    left: 15%;
+    top: 20%;
+    background: 
+        radial-gradient(ellipse 35px 55px at 35px 55px, rgba(255, 183, 77, 0.4), transparent),
+        radial-gradient(ellipse 28px 38px at 30px 38px, rgba(255, 119, 198, 0.3), transparent),
+        radial-gradient(ellipse 18px 28px at 40px 73px, rgba(120, 219, 255, 0.2), transparent);
+    animation: characterFloat 12s ease-in-out infinite;
+}
+
+.character-4 {
+    width: 50px;
+    height: 80px;
+    right: 20%;
+    top: 25%;
+    background: 
+        radial-gradient(ellipse 25px 40px at 25px 40px, rgba(183, 255, 77, 0.4), transparent),
+        radial-gradient(ellipse 20px 30px at 20px 30px, rgba(255, 183, 77, 0.3), transparent),
+        radial-gradient(ellipse 12px 20px at 30px 50px, rgba(255, 119, 198, 0.2), transparent);
+    animation: characterFloat 9s ease-in-out infinite reverse;
+}
+
+/* Character glow effects */
+.anime-character::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(2px);
+    opacity: 0.5;
+    animation: characterGlow 4s ease-in-out infinite;
+}
+
+.anime-character::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.8), transparent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: characterSparkle 3s ease-in-out infinite;
+}
+
+/* Character float animation */
+@keyframes characterFloat {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.3;
+    }
+    25% {
+        transform: translateY(-10px) rotate(1deg);
+        opacity: 0.4;
+    }
+    50% {
+        transform: translateY(-5px) rotate(-1deg);
+        opacity: 0.5;
+    }
+    75% {
+        transform: translateY(-15px) rotate(2deg);
+        opacity: 0.4;
+    }
+}
+
+/* Character glow animation */
+@keyframes characterGlow {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+
+/* Character sparkle animation */
+@keyframes characterSparkle {
+    0%, 100% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1.3);
+    }
+}
+
+/* Anime character details */
+.character-details {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(ellipse 10px 15px at 30px 25px, rgba(255, 255, 255, 0.6), transparent),
+        radial-gradient(ellipse 8px 12px at 45px 35px, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(ellipse 6px 10px at 25px 45px, rgba(255, 255, 255, 0.5), transparent);
+    animation: characterDetails 5s ease-in-out infinite;
+}
+
+@keyframes characterDetails {
+    0%, 100% {
+        opacity: 0.3;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.6;
+        transform: scale(1.05);
+    }
+}
+
+/* Character energy trails */
+.character-trail {
+    position: absolute;
+    width: 3px;
+    height: 30px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), transparent);
+    animation: characterTrail 2s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes characterTrail {
+    0% {
+        opacity: 0.2;
+        transform: scaleY(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scaleY(0.1);
+    }
+} 

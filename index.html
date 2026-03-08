@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PuzzleBit - 2D Animated Puzzle Game</title>
+    <meta name="description" content="An addictive 2D puzzle game with smooth graphics and animated interface">
+    <link rel="stylesheet" href="src/styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="loading-screen">
+            <div class="loading-content">
+                <div class="logo">
+                    <h1>PuzzleBit</h1>
+                    <div class="logo-subtitle">2D Puzzle Adventure</div>
+                </div>
+                <div class="loading-bar">
+                    <div class="loading-progress"></div>
+                </div>
+                <div class="loading-text">Loading amazing puzzle world...</div>
+            </div>
+        </div>
+
+        <!-- Main Menu -->
+        <div id="main-menu" class="menu-screen hidden">
+            <div class="menu-content">
+                <div class="menu-logo">
+                    <h1>PuzzleBit</h1>
+                    <div class="menu-subtitle">2D Puzzle Adventure</div>
+                </div>
+                <div class="menu-buttons">
+                    <button id="play-btn" class="menu-btn primary">Play Game</button>
+                    <button id="instructions-btn" class="menu-btn secondary">📖 How to Play</button>
+                    <button id="levels-btn" class="menu-btn secondary">Levels</button>
+                    <button id="settings-btn" class="menu-btn secondary">Settings</button>
+                    <button id="credits-btn" class="menu-btn secondary">Credits</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instructions Screen -->
+        <div id="instructions-screen" class="menu-screen hidden">
+            <div class="menu-content instructions-content">
+                <h2>📖 How to Play PuzzleBit</h2>
+                <div class="instructions-text">
+                    <div class="instruction-section">
+                        <h3>🎯 Objective</h3>
+                        <p>Match 3 or more tiles of the same color in a row or column to score points!</p>
+                    </div>
+                    
+                    <div class="instruction-section">
+                        <h3>🎮 Controls</h3>
+                        <ul>
+                            <li><strong>Click</strong> on a tile to select it</li>
+                            <li><strong>Click</strong> on an adjacent tile to swap them</li>
+                            <li><strong>Match 3+</strong> tiles in a row or column</li>
+                            <li><strong>Use hints</strong> when you're stuck</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="instruction-section">
+                        <h3>⭐ Scoring</h3>
+                        <ul>
+                            <li><strong>100 points</strong> per matched tile</li>
+                            <li><strong>Bonus points</strong> for multiple matches</li>
+                            <li><strong>Complete levels</strong> to unlock more</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="instruction-section">
+                        <h3>🎨 Game Features</h3>
+                        <ul>
+                            <li><strong>5 different levels</strong> with increasing difficulty</li>
+                            <li><strong>Vibrant colors</strong> and smooth animations</li>
+                            <li><strong>3D background</strong> effects</li>
+                            <li><strong>Hint system</strong> to help you progress</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="menu-buttons">
+                    <button id="back-to-menu-btn" class="menu-btn primary">Back to Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game UI -->
+        <div id="game-ui" class="game-ui hidden">
+            <!-- Game content will be dynamically created -->
+        </div>
+
+        <!-- Pause Menu -->
+        <div id="pause-menu" class="menu-screen hidden">
+            <div class="menu-content">
+                <h2>Game Paused</h2>
+                <div class="menu-buttons">
+                    <button id="resume-btn" class="menu-btn primary">Resume</button>
+                    <button id="restart-level-btn" class="menu-btn secondary">Restart Level</button>
+                    <button id="main-menu-btn" class="menu-btn secondary">Main Menu</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Level Complete -->
+        <div id="level-complete" class="menu-screen hidden">
+            <div class="menu-content">
+                <h2>Level Complete!</h2>
+                <div class="completion-stats">
+                    <div class="stat">
+                        <span class="stat-label">Score:</span>
+                        <span class="stat-value" id="final-score">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Moves:</span>
+                        <span class="stat-value" id="final-moves">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Time:</span>
+                        <span class="stat-value" id="final-time">00:00</span>
+                    </div>
+                </div>
+                <div class="menu-buttons">
+                    <button id="next-level-btn" class="menu-btn primary">Next Level</button>
+                    <button id="replay-level-btn" class="menu-btn secondary">Replay</button>
+                    <button id="main-menu-complete-btn" class="menu-btn secondary">Main Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="src/js/main.js"></script>
+</body>
+</html> 
